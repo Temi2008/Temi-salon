@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Haircuts — Temi Hair Salon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#050505;--gold:#c49a3a;--muted:#a79b8f}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Arial;background:#0b0b0b;color:#fff}
+    header{padding:18px 28px;display:flex;align-items:center;justify-content:space-between;background:#070707}
+    .logo{font-family:Playfair Display;font-weight:700;color:var(--gold)}
+    .container{max-width:1100px;margin:36px auto;padding:0 18px}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:center}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:18px;border-radius:12px}
+    img.hero-img{width:100%;height:360px;object-fit:cover;border-radius:12px}
+    h1{font-family:Playfair Display;margin:0 0 12px}
+    p.lead{color:var(--muted);margin:0 0 18px}
+    ul.services{margin:12px 0 0;padding-left:18px;color:var(--muted)}
+    a.back{display:inline-block;margin-top:18px;color:var(--gold)}
+    footer{padding:24px;text-align:center;color:var(--muted);font-size:13px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;gap:14px;align-items:center">
+      <div class="logo">TH</div>
+      <div>
+        <div style="font-weight:700">Temi Hair Salon</div>
+        <div style="font-size:12px;color:var(--muted)">Precision cuts • Expert stylists</div>
+      </div>
+    </div>
+    <nav>
+      <a href="index.html" style="color:var(--muted);text-decoration:none">Home</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Precision Haircuts</h1>
+        <p class="lead">Our stylists craft cuts that suit your face, hair type and lifestyle — from classic trims to editorial transformations.</p>
+
+        <div class="card">
+          <h3>What’s included</h3>
+          <ul class="services">
+            <li>Consultation & face-shape analysis</li>
+            <li>Precision cutting techniques</li>
+            <li>Finish & styling</li>
+            <li>Aftercare tips</li>
+          </ul>
+          <a class="back" href="index.html">← Back to home</a>
+        </div>
+      </div>
+
+      <aside>
+        <img class="hero-img" src="image/land.jpg" alt="Haircut">
+        <div style="margin-top:12px" class="card">
+          <strong>Book a consultation</strong>
+          <p style="margin:8px 0 0;color:var(--muted)">Call +234 800 000 0000 or use our online booking on the homepage.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Temi Hair Salon — All rights reserved
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

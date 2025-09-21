@@ -1,0 +1,532 @@
+<!-- Filename: pages/quick-book.html (upgraded with many features) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quick Book — Temi Hair Salon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050505; --card:#0b0b0b; --gold:#c49a3a; --muted:#a79b8f; --glass: rgba(255,255,255,0.03); --radius:12px; --maxw:980px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#030303 0%, #070707 100%);color:#fff}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:26px auto;padding:18px}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand-mark{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#f4e6b0);display:flex;align-items:center;justify-content:center;color:#050505;font-weight:700;font-family:Playfair Display}
+    .brand-meta .title{font-family:Playfair Display;font-weight:700}
+    .brand-meta .sub{font-size:13px;color:var(--muted)}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:var(--radius);box-shadow:0 14px 40px rgba(0,0,0,0.5);display:grid;grid-template-columns:1fr 380px;gap:18px;align-items:start}
+    h1{font-family:Playfair Display;margin:0 0 6px}
+    p.lead{color:var(--muted);margin:0 0 10px}
+    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+    input[type="text"], input[type="email"], input[type="tel"], input[type="datetime-local"], select, textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;margin-bottom:12px}
+    textarea{min-height:110px}
+    .small{font-size:13px;color:var(--muted)}
+    .btn{padding:10px 12px;border-radius:10px;font-weight:700;display:inline-flex;gap:8px;align-items:center;cursor:pointer;border:none}
+    .btn-primary{background:linear-gradient(90deg,var(--gold),#f4e6b0);color:#050505}
+    .btn-ghost{border:1px solid rgba(255,255,255,0.06);color:#fff;background:transparent}
+    .meta{background:var(--card);padding:12px;border-radius:10px}
+    .row{display:flex;gap:8px;flex-wrap:wrap}
+    .error{color:#ff8b8b;font-size:13px;margin-top:-8px;margin-bottom:8px}
+    .suggestions{background:#0d0d0d;border-radius:8px;border:1px solid rgba(255,255,255,0.03);padding:8px}
+    .slot-btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff;cursor:pointer}
+    .file-preview{margin-top:8px;font-size:13px;color:var(--muted)}
+    .progress{height:8px;background:#0b0b0b;border-radius:8px;overflow:hidden;margin-top:10px}
+    .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#c49a3a,#f4e6b0)}
+    .conf-box{background:linear-gradient(180deg, rgba(196,154,58,0.06), transparent);padding:12px;border-radius:10px;margin-top:12px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .qr{width:120px;height:120px;border-radius:8px;background:#0b0b0b;display:flex;align-items:center;justify-content:center}
+    .hidden{display:none}
+    @media(max-width:980px){.card{grid-template-columns:1fr}.qr{width:100px;height:100px}}
+    @media(max-width:520px){.brand-mark{width:42px;height:42px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="brand-mark">TH</div>
+        <div class="brand-meta">
+          <div class="title">Temi Hair Salon</div>
+          <div class="sub small">Quick booking (enhanced)</div>
+        </div>
+      </div>
+      <div>
+        <a href="temi/index.html" class="small" style="color:var(--muted)">← Home</a>
+      </div>
+    </div>
+
+    <div class="card" role="region" aria-labelledby="quick-book-title">
+      <div>
+        <div class="hero">
+          <div>
+            <h1 id="quick-book-title">Quick booking</h1>
+            <p class="lead">Fast request form — now with slot suggestions, calendar export, image upload and QR confirmation.</p>
+            <div class="small" id="tzInfo">Detecting timezone…</div>
+          </div>
+        </div>
+
+        <form id="quickBook" novalidate>
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" placeholder="e.g. Adaeze" required>
+          <div class="error" id="errName" style="display:none"></div>
+
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="+234 800 000 0000" required>
+          <div class="error" id="errPhone" style="display:none"></div>
+
+          <label for="email">Email <span class="small">(optional)</span></label>
+          <input id="email" name="email" type="email" placeholder="you@example.com">
+
+          <label for="service">Service</label>
+          <input id="service" name="service" type="text" placeholder="e.g. Balayage — 25% off" aria-autocomplete="list" autocomplete="off" required>
+          <div class="suggestions small" id="serviceSuggestions" style="display:none"></div>
+
+          <label for="price">Price / Estimate</label>
+          <input id="price" name="price" type="text" placeholder="₦26,250" aria-label="Price or estimate">
+
+          <label for="datetime">Date & time</label>
+          <input id="datetime" name="datetime" type="datetime-local" required>
+          <div class="error" id="errDate" style="display:none"></div>
+
+          <div class="small">Suggested available slots:</div>
+          <div class="row" id="slotSuggestions" style="margin-bottom:12px"></div>
+
+          <label for="refImage">Reference photo (optional)</label>
+          <input id="refImage" name="refImage" type="file" accept="image/*">
+          <div class="file-preview small" id="filePreview" style="display:none"></div>
+
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" placeholder="Tell us about your hair, concerns or paste reference image link"></textarea>
+
+          <!-- CAPTCHA simple -->
+          <div style="margin-top:8px" id="captchaWrap">
+            <label class="small">Prove you're human: <span id="captchaQ"></span></label>
+            <input id="captcha" placeholder="Answer" style="width:160px;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff">
+            <div class="error" id="errCaptcha" style="display:none"></div>
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+            <button type="submit" class="btn btn-primary" id="submitBtn">Request booking</button>
+            <button type="button" class="btn btn-ghost" id="openFull">Open full booking</button>
+            <div style="margin-left:auto" class="small" id="localSaveHint">Demo: saved locally</div>
+          </div>
+
+          <div class="progress hidden" id="progressWrap" aria-hidden="true"><i id="progressBar"></i></div>
+        </form>
+
+        <!-- After submit confirmation -->
+        <div id="afterSubmit" class="hidden" aria-live="polite">
+          <div class="conf-box" id="confBox"></div>
+          <div class="actions">
+            <button id="downloadIcs" class="btn btn-ghost">Download .ics</button>
+            <button id="copyLink" class="btn btn-ghost">Copy confirmation link</button>
+            <button id="whatsShare" class="btn btn-ghost">Share via WhatsApp</button>
+            <button id="printConf" class="btn btn-ghost">Print</button>
+            <button id="openPay" class="btn btn-primary">Pay deposit (demo)</button>
+            <button id="newBooking" class="btn btn-ghost">Make another</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:16px;margin-top:12px">
+            <div class="qr" id="qrWrap" title="QR code for confirmation"></div>
+            <div class="small" id="savedInfo">Saved to demo storage</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right column -->
+      <aside class="meta" aria-labelledby="metaTitle">
+        <h3 id="metaTitle">Quick details</h3>
+        <div class="small" style="margin-bottom:8px">Use this form for fast reservations. We’ll confirm and assign a stylist.</div>
+
+        <div style="margin-bottom:12px">
+          <strong>Suggested times</strong>
+          <div class="small">Tap a suggested slot to populate the date/time field.</div>
+        </div>
+
+        <div style="margin-bottom:12px">
+          <strong>Attach reference</strong>
+          <div class="small">Attach one photo to help the stylist prepare (preview shown).</div>
+        </div>
+
+        <div style="margin-top:8px">
+          <strong>Demo storage</strong>
+          <div class="small">Bookings are stored in browser localStorage for testing. Inspect via Console: <code>getTemiQuickBookings()</code></div>
+        </div>
+
+        <div style="margin-top:12px">
+          <strong>Saved bookings</strong>
+          <div class="small" id="savedList" style="margin-top:8px"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Payment placeholder modal -->
+  <div id="payBackdrop" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:130">
+    <div style="background:#0b0b0b;padding:18px;border-radius:12px;max-width:420px;width:100%">
+      <h3 style="margin:0 0 8px;font-family:Playfair Display">Demo Payment</h3>
+      <p class="small" style="margin:0 0 12px">This is a payment UI placeholder. Integrate Stripe / Paystack / Flutterwave here for real payments.</p>
+      <div style="display:flex;gap:8px">
+        <button id="payConfirm" class="btn btn-primary">Simulate pay</button>
+        <button id="payClose" class="btn btn-ghost">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    /* -------------- Utilities -------------- */
+    const $ = id => document.getElementById(id);
+    const servicesList = [
+      'Precision Cut','Balayage','Full Color','Toner & Gloss','Extensions - Tape-in',
+      'Extensions - Sew-in','Keratin Treatment','Olaplex Repair','Bridal Styling','Kids Cut'
+    ];
+
+    function qselAll(sel){ return Array.from(document.querySelectorAll(sel)); }
+    function fmtLocal(dt){ return (new Date(dt)).toLocaleString(); }
+    function uid(prefix='QB'){ return prefix+'_'+Math.random().toString(36).slice(2,10).toUpperCase(); }
+
+    /* -------------- Timezone info -------------- */
+    function showTZ(){
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'local';
+      const now = new Date();
+      $('tzInfo').textContent = `Local timezone: ${tz} — ${now.toLocaleString()}`;
+    }
+    showTZ();
+
+    /* -------------- Prefill from URL -------------- */
+    function readParams(){
+      const ps = new URLSearchParams(location.search);
+      return {
+        offer: ps.get('offer') || '',
+        price: ps.get('price') || '',
+        datetime: ps.get('datetime') || ''
+      };
+    }
+    function prefill(){
+      const p = readParams();
+      if(p.offer) $('service').value = decodeURIComponent(p.offer);
+      if(p.price) $('price').value = decodeURIComponent(p.price);
+      if(p.datetime){
+        try{
+          const d = new Date(p.datetime);
+          if(!isNaN(d)) {
+            const y = d.getFullYear(), m = String(d.getMonth()+1).padStart(2,'0'), day = String(d.getDate()).padStart(2,'0');
+            const hh = String(d.getHours()).padStart(2,'0'), mm = String(d.getMinutes()).padStart(2,'0');
+            $('datetime').value = `${y}-${m}-${day}T${hh}:${mm}`;
+          }
+        }catch(e){}
+      }
+    }
+
+    /* -------------- Set min datetime (rounded next 30m) -------------- */
+    function setMinDate(){
+      const input = $('datetime'); const now = new Date();
+      const ms = 1000 * 60 * 30;
+      const rounded = new Date(Math.ceil(now.getTime()/ms)*ms);
+      function toLocalString(d){
+        const pad=(n)=>String(n).padStart(2,'0');
+        return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      }
+      input.min = toLocalString(rounded);
+    }
+    setMinDate();
+
+    /* -------------- Service autocomplete -------------- */
+    const serviceInput = $('service');
+    const suggestions = $('serviceSuggestions');
+    serviceInput.addEventListener('input', ()=>{
+      const q = serviceInput.value.trim().toLowerCase();
+      if(!q){ suggestions.style.display='none'; return; }
+      const matches = servicesList.filter(s => s.toLowerCase().includes(q)).slice(0,6);
+      if(matches.length===0){ suggestions.style.display='none'; return; }
+      suggestions.innerHTML = matches.map(m => `<div style="padding:6px;border-radius:6px;cursor:pointer" data-val="${m}">${m}</div>`).join('');
+      suggestions.style.display='block';
+      suggestions.querySelectorAll('div').forEach(el=>{
+        el.addEventListener('click', ()=>{ serviceInput.value = el.dataset.val; suggestions.style.display='none'; });
+      });
+    });
+    document.addEventListener('click', (e)=>{ if(!e.target.closest('#service')) suggestions.style.display='none'; });
+
+    /* -------------- Suggested available slots (next 5) -------------- */
+    function computeSlots(){
+      const now = new Date();
+      const slots = [];
+      // available times: 10:00, 13:00, 16:00 for next 10 days
+      const times = [10,13,16];
+      for(let d=0; d<10 && slots.length<6; d++){
+        const day = new Date(now.getFullYear(), now.getMonth(), now.getDate()+d);
+        for(const h of times){
+          const dt = new Date(day.getFullYear(),day.getMonth(),day.getDate(),h,0,0);
+          if(dt > now) slots.push(dt);
+          if(slots.length>=6) break;
+        }
+      }
+      return slots.slice(0,6);
+    }
+    function renderSlots(){
+      const container = $('slotSuggestions'); container.innerHTML='';
+      const slots = computeSlots();
+      slots.forEach(s=>{
+        const btn = document.createElement('button');
+        btn.className='slot-btn small';
+        btn.type='button';
+        btn.textContent = s.toLocaleString();
+        btn.addEventListener('click', ()=> {
+          // fill datetime input with formatted value
+          const y = s.getFullYear(), m = String(s.getMonth()+1).padStart(2,'0'), d = String(s.getDate()).padStart(2,'0');
+          const hh = String(s.getHours()).padStart(2,'0'), mm = String(s.getMinutes()).padStart(2,'0');
+          $('datetime').value = `${y}-${m}-${d}T${hh}:${mm}`;
+          // smooth focus
+          $('datetime').focus();
+        });
+        container.appendChild(btn);
+      });
+    }
+    renderSlots();
+
+    /* -------------- File preview -------------- */
+    $('refImage').addEventListener('change', (e)=>{
+      const f = e.target.files[0];
+      if(!f){ $('filePreview').style.display='none'; return; }
+      $('filePreview').style.display='block';
+      $('filePreview').textContent = `Selected: ${f.name} • ${Math.round(f.size/1024)} KB`;
+      // preview thumbnail (optional)
+      if(f.type.startsWith('image/')){
+        const reader = new FileReader();
+        reader.onload = function(evt){
+          let img = document.querySelector('#fileThumb');
+          if(!img){ img = document.createElement('img'); img.id='fileThumb'; img.style.width='100%'; img.style.borderRadius='8px'; img.style.marginTop='8px'; $('filePreview').appendChild(img); }
+          img.src = evt.target.result;
+        }
+        reader.readAsDataURL(f);
+      }
+    });
+
+    /* -------------- Simple CAPTCHA -------------- */
+    let captchaAnswer = 0;
+    function genCaptcha(){
+      const a = Math.floor(Math.random()*8)+1;
+      const b = Math.floor(Math.random()*8)+1;
+      captchaAnswer = a + b;
+      $('captchaQ').textContent = `${a} + ${b} = ?`;
+    }
+    genCaptcha();
+
+    /* -------------- Phone formatting (basic) -------------- */
+    function formatPhone(val){
+      // strip to digits and plus
+      const cleaned = val.replace(/[^\d+]/g,'');
+      return cleaned;
+    }
+
+    /* -------------- Validation helpers -------------- */
+    function validPhone(p){
+      if(!p) return false;
+      const s = p.replace(/[^\d]/g,'');
+      return s.length >= 7 && s.length <= 16;
+    }
+
+    /* -------------- Progress UI -------------- */
+    function showProgress(){
+      $('progressWrap').classList.remove('hidden'); $('progressWrap').setAttribute('aria-hidden','false');
+      const bar = $('progressBar'); bar.style.width='0%';
+      let pct=0;
+      const int = setInterval(()=>{ pct += Math.random()*12; if(pct>=100){ pct=100; bar.style.width='100%'; clearInterval(int); } else bar.style.width = pct+'%'; }, 180);
+      return new Promise(resolve=> setTimeout(()=>{ clearInterval(int); bar.style.width='100%'; setTimeout(resolve, 300); }, 900));
+    }
+    function hideProgress(){ $('progressWrap').classList.add('hidden'); $('progressWrap').setAttribute('aria-hidden','true'); $('progressBar').style.width='0%'; }
+
+    /* -------------- Save & display saved bookings (localStorage demo) -------------- */
+    function saveBooking(booking){
+      const list = JSON.parse(localStorage.getItem('temi_quick_bookings')||'[]');
+      list.unshift(booking);
+      localStorage.setItem('temi_quick_bookings', JSON.stringify(list));
+    }
+    function renderSavedList(){
+      const list = JSON.parse(localStorage.getItem('temi_quick_bookings')||'[]').slice(0,3);
+      const box = $('savedList'); box.innerHTML = '';
+      if(list.length===0){ box.innerHTML = '<div class="small">No demo bookings yet</div>'; return; }
+      list.forEach(b=>{
+        const el = document.createElement('div'); el.className='small'; el.style.marginBottom='6px';
+        el.innerHTML = `${b.id} • ${b.service} • ${new Date(b.datetime).toLocaleString()} <button data-id="${b.id}" class="btn btn-ghost" style="padding:6px 8px;font-size:12px;margin-left:8px">Resend</button>`;
+        box.appendChild(el);
+        el.querySelector('button').addEventListener('click', ()=>resendBooking(b.id));
+      });
+    }
+
+    function resendBooking(id){
+      const list = JSON.parse(localStorage.getItem('temi_quick_bookings')||'[]');
+      const b = list.find(x=>x.id===id);
+      if(!b) return alert('Booking not found');
+      // simulate resend
+      alert(`Resent demo confirmation for ${b.id} — check console`);
+      console.log('Resent booking (demo):', b);
+    }
+
+    /* -------------- ICS (calendar file) creation -------------- */
+    function makeICS(booking){
+      const dtStart = new Date(booking.datetime);
+      const dtEnd = new Date(dtStart.getTime() + 1000*60*60); // +1 hour
+      function toICS(d){ // format YYYYMMDDTHHMMSSZ (UTC)
+        const pad = n => String(n).padStart(2,'0');
+        return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'Z';
+      }
+      const uid = booking.id + '@temihairsalon';
+      const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Temi Hair Salon//EN',
+        'BEGIN:VEVENT',
+        `UID:${uid}`,
+        `DTSTAMP:${toICS(new Date())}`,
+        `DTSTART:${toICS(dtStart)}`,
+        `DTEND:${toICS(dtEnd)}`,
+        `SUMMARY:Temi Hair Salon — ${booking.service}`,
+        `DESCRIPTION:Booking ${booking.id}\\nContact: ${booking.name} ${booking.phone}\\nNotes: ${booking.notes || ''}`,
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\\r\\n');
+      return new Blob([ics], {type:'text/calendar'});
+    }
+
+    /* -------------- QR generation (uses Google Chart API) -------------- */
+    function setQR(text){
+      const src = 'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=' + encodeURIComponent(text);
+      $('qrWrap').innerHTML = `<img src="${src}" alt="QR" style="width:100%;height:100%;object-fit:cover;border-radius:8px">`;
+    }
+
+    /* -------------- Submission handler -------------- */
+    $('quickBook').addEventListener('submit', async function(e){
+      e.preventDefault();
+      // clear errors
+      $('errName').style.display='none'; $('errPhone').style.display='none'; $('errDate').style.display='none'; $('errCaptcha').style.display='none';
+
+      const name = $('name').value.trim();
+      const phoneRaw = $('phone').value.trim(); const phone = formatPhone(phoneRaw);
+      const email = $('email').value.trim();
+      const service = $('service').value.trim();
+      const price = $('price').value.trim();
+      const datetime = $('datetime').value;
+      const notes = $('notes').value.trim();
+      const captcha = $('captcha').value.trim();
+
+      let ok=true;
+      if(!name){ $('errName').textContent='Please enter your name.'; $('errName').style.display='block'; ok=false; }
+      if(!validPhone(phone)){ $('errPhone').textContent='Please enter a valid phone number.'; $('errPhone').style.display='block'; ok=false; }
+      if(!datetime){ $('errDate').textContent='Please choose a date and time.'; $('errDate').style.display='block'; ok=false; }
+      if(Number(captcha) !== captchaAnswer){ $('errCaptcha').textContent='Incorrect answer. Try again.'; $('errCaptcha').style.display='block'; ok=false; genCaptcha(); }
+
+      if(!ok) return;
+
+      // show progress
+      await showProgress();
+
+      // create booking object
+      const booking = {
+        id: uid('QB'),
+        name, phone, email, service, price, datetime, notes, createdAt: new Date().toISOString()
+      };
+
+      // save locally (demo)
+      saveBooking(booking);
+      renderSavedList();
+
+      // hide progress UI
+      hideProgress();
+
+      // show confirmation UI
+      $('quickBook').style.display='none';
+      $('afterSubmit').classList.remove('hidden');
+      $('afterSubmit').style.display='block';
+
+      // populate confirmation box
+      const conf = $('confBox');
+      conf.innerHTML = `<strong>Thanks — your request has been received.</strong>
+        <div class="small" style="margin-top:8px">Confirmation ID: <strong>${booking.id}</strong></div>
+        <div class="small">Service: ${escapeHtml(booking.service)} ${booking.price? '• '+escapeHtml(booking.price):''}</div>
+        <div class="small">When: ${new Date(booking.datetime).toLocaleString()}</div>
+        <div class="small">We will contact you at ${escapeHtml(booking.phone)} to confirm.</div>`;
+
+      // QR for confirmation link
+      const confUrl = location.origin + location.pathname + '?confirm=' + encodeURIComponent(booking.id);
+      setQR(confUrl);
+
+      // wire share buttons
+      $('copyLink').onclick = async ()=> {
+        try{ await navigator.clipboard.writeText(confUrl); alert('Confirmation link copied'); } catch(e){ prompt('Copy link', confUrl); }
+      };
+      $('whatsShare').onclick = ()=> {
+        const txt = encodeURIComponent(`My Temi booking: ${booking.service} on ${new Date(booking.datetime).toLocaleString()} — ID: ${booking.id}\n${confUrl}`);
+        window.open('https://wa.me/?text='+txt,'_blank');
+      };
+      $('printConf').onclick = ()=> window.print();
+
+      // download ICS
+      $('downloadIcs').onclick = ()=> {
+        const blob = makeICS(booking);
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = `${booking.id}.ics`; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=> URL.revokeObjectURL(url), 2000);
+      };
+
+      // show saved info
+      $('savedInfo').textContent = `Saved (${new Date().toLocaleString()})`;
+
+      // quick demo log
+      console.log('Demo booking saved:', booking);
+    });
+
+    /* -------------- Helpers -------------- */
+    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+    /* -------------- Buttons & extras -------------- */
+    $('openFull').addEventListener('click', ()=> {
+      const svc = encodeURIComponent($('service').value||'');
+      const price = encodeURIComponent($('price').value||'');
+      location.href = `book.html?offer=${svc}&price=${price}`;
+    });
+    $('newBooking').addEventListener('click', ()=> {
+      // reset form
+      $('quickBook').reset();
+      $('filePreview').style.display='none';
+      genCaptcha(); setMinDateAndClear();
+      $('quickBook').style.display='block';
+      $('afterSubmit').classList.add('hidden');
+      $('afterSubmit').style.display='none';
+    });
+
+    function setMinDateAndClear(){
+      setMinDate();
+      $('datetime').value='';
+    }
+
+    // copy confirmation link already defined in submit handler
+
+    // Payment modal (placeholder)
+    $('openPay').addEventListener('click', ()=> $('payBackdrop').style.display='flex');
+    $('payClose').addEventListener('click', ()=> $('payBackdrop').style.display='none');
+    $('payConfirm').addEventListener('click', ()=> {
+      alert('Payment simulated (demo). Integrate real payment gateway for production.');
+      $('payBackdrop').style.display='none';
+    });
+
+    // expose function for console/debug
+    window.getTemiQuickBookings = ()=> JSON.parse(localStorage.getItem('temi_quick_bookings')||'[]');
+
+    // Init
+    prefill(); renderSlots(); renderSavedList();
+
+    // small UX: set focus
+    setTimeout(()=> $('name').focus(), 150);
+
+  })();
+  </script>
+</body>
+</html>

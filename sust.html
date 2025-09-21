@@ -1,0 +1,218 @@
+<!-- Filename: pages/sustainability.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sustainability — Temi Hair Salon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#050505;--card:#0b0b0b;--gold:#c49a3a;--muted:#a79b8f;--glass: rgba(255,255,255,0.03);--radius:12px;--maxw:1100px}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;color:#fff;background:linear-gradient(180deg,#030303 0%, #070707 100%)}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
+
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand-mark{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#f4e6b0);display:flex;align-items:center;justify-content:center;color:#050505;font-weight:700;font-family:Playfair Display}
+    .brand-meta .title{font-family:Playfair Display;font-weight:700}
+    .brand-meta .sub{font-size:13px;color:var(--muted)}
+
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:center;padding:22px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+    .hero h1{font-family:Playfair Display;margin:0 0 8px;font-size:30px}
+    .hero p{color:var(--muted);margin:0 0 12px}
+
+    .grid{display:grid;gap:16px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px}
+
+    .kpis{display:flex;gap:12px;margin-top:12px}
+    .kpi{background:var(--card);padding:12px;border-radius:10px;text-align:center;min-width:120px}
+    .kpi strong{display:block;font-size:20px}
+    .kpi span{color:var(--muted);font-size:13px}
+
+    .programs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    .program{background:var(--card);padding:12px;border-radius:10px}
+
+    .timeline{margin-top:12px}
+    .timeline li{margin-bottom:8px;color:var(--muted)}
+
+    .partners{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .partner{background:#0b0b0b;padding:8px;border-radius:8px}
+    .partner img{height:36px;object-fit:contain}
+
+    .download{display:flex;gap:8px;margin-top:12px}
+    .btn{padding:10px 12px;border-radius:10px;font-weight:700;display:inline-flex;gap:8px;align-items:center;cursor:pointer;border:none}
+    .btn-primary{background:linear-gradient(90deg,var(--gold),#f4e6b0);color:#050505}
+    .btn-ghost{border:1px solid rgba(255,255,255,0.06);color:#fff;background:transparent}
+
+    .faq{margin-top:18px}
+    .faq-item{background:var(--card);padding:12px;border-radius:10px;margin-bottom:10px}
+    .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .faq-a{color:var(--muted);margin-top:8px;display:none}
+
+    @media(max-width:1000px){.programs{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}}
+    @media(max-width:640px){.programs{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="brand-mark">TH</div>
+        <div class="brand-meta">
+          <div class="title">Temi Hair Salon</div>
+          <div class="sub">Sustainability & responsible practice</div>
+        </div>
+      </div>
+      <div><a href="index.html" class="small" style="color:var(--muted)">← Back to home</a></div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h1>Our sustainability promise</h1>
+        <p class="small">We aim to run a salon that respects people and the planet — from product sourcing to waste reduction, education and community partnerships. Below you'll find our core programs, targets and ways you can get involved.</p>
+
+        <div class="kpis" aria-hidden="false">
+          <div class="kpi"><strong id="kpi-waste">0%</strong><span>Single-use waste (goal)</span></div>
+          <div class="kpi"><strong id="kpi-refill">0</strong><span>Refill stations</span></div>
+          <div class="kpi"><strong id="kpi-recycle">0kg</strong><span>Monthly recycled</span></div>
+        </div>
+
+        <div class="download">
+          <button class="btn btn-primary" id="downloadReport">Download 2024 Sustainability Report (PDF)</button>
+          <button class="btn btn-ghost" id="subscribeSust">Subscribe for updates</button>
+        </div>
+      </div>
+
+      <aside>
+        <div class="card">
+          <h3 style="margin-top:0">Quick facts</h3>
+          <p class="small">We audit our suppliers annually, offer refill stations for select products, and partner with local recyclers for salon waste.</p>
+          <div style="margin-top:12px"><strong>Contact sustainability lead</strong><div class="small">sustainability@temihairsalon.com</div></div>
+        </div>
+      </aside>
+    </section>
+
+    <section style="margin-top:18px">
+      <div class="card">
+        <h2 style="font-family:Playfair Display;margin-top:0">Programs we run</h2>
+        <div class="programs">
+          <div class="program">
+            <h4 style="margin-top:0">Refill & reduce</h4>
+            <p class="small">Clients can refill shampoo, conditioner and select treatments at discounted rates — we keep product packaging in rotation and reduce single-use bottles.</p>
+          </div>
+          <div class="program">
+            <h4 style="margin-top:0">Responsible sourcing</h4>
+            <p class="small">We work with suppliers who disclose ingredients, avoid harmful chemicals and take steps toward fair labor practices.</p>
+          </div>
+          <div class="program">
+            <h4 style="margin-top:0">Recycling & compost</h4>
+            <p class="small">We separate hair clippings for composting projects and recycle plastics and cardboard through our local partners.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-top:18px">
+      <div class="card">
+        <h3 style="margin-top:0">Our 3‑year targets</h3>
+        <ul class="timeline small">
+          <li><strong>2026:</strong> Reduce salon-single-use plastics by 70%.</li>
+          <li><strong>2026:</strong> All major suppliers audited for sustainability standards.</li>
+          <li><strong>2027:</strong> Expand refill program to all locations and pop-ups.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section style="margin-top:18px">
+      <div class="card">
+        <h3 style="margin-top:0">Partners & certifications</h3>
+        <div class="partners">
+          <div class="partner"><img src="image/785b985f-4fa1-4b86-82f9-7c54424df09c.jpg" alt="Olaplex"></div>
+          <div class="partner"><img src="image/“THIS IS HER”  Njideka is not a woman here to play… (1).jpg" alt="Kerastase"></div>
+          <div class="partner"><img src="image/12A Burmese Deep Curly Bundles Hair Unprocessed….jpg" alt="Eco"></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-top:18px">
+      <div class="card">
+        <h3 style="margin-top:0">How you can help</h3>
+        <ul class="small" style="color:var(--muted)">
+          <li>Choose refill options when booking your appointment.</li>
+          <li>Bring back empty product containers for store credit.</li>
+          <li>Donate hair clippings for local composting drives.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="faq" style="margin-top:18px">
+      <h3 style="font-family:Playfair Display">Sustainability FAQ</h3>
+      <div class="faq-item">
+        <div class="faq-q">Do you use cruelty-free products? <span class="small">+</span></div>
+        <div class="faq-a">We prioritise cruelty-free brands where possible and verify supplier claims during our audits.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I bring my own product bottles? <span class="small">+</span></div>
+        <div class="faq-a">Yes — we accept clean bottles for refills. Our team can assist with safe filling during service.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens to hair clippings? <span class="small">+</span></div>
+        <div class="faq-a">We collect clippings for community composting and erosion-control programs run by our local partners.</div>
+      </div>
+    </section>
+
+    <section style="margin-top:18px;margin-bottom:40px">
+      <div class="card">
+        <h3 style="margin-top:0">Get involved</h3>
+        <p class="small">Want to partner, volunteer or suggest a greener supplier? Email sustainability@temihairsalon.com or subscribe for quarterly updates.</p>
+        <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+          <input id="sustEmail" placeholder="Your email" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff">
+          <button id="sustBtn" class="btn btn-primary">Subscribe</button>
+        </div>
+        <div id="sustMsg" class="small" style="margin-top:8px;color:var(--muted)"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // KPI demo values (replace with real data when available)
+    document.getElementById('kpi-waste').textContent = '70%';
+    document.getElementById('kpi-refill').textContent = '3';
+    document.getElementById('kpi-recycle').textContent = '120kg';
+
+    // Download report (demo blob)
+    document.getElementById('downloadReport').addEventListener('click', ()=>{
+      const text = 'Temi Hair Salon — 2024 Sustainability Report\n\n(Placeholder PDF content for demo)';
+      const blob = new Blob([text], {type:'application/pdf'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'Temi_Sustainability_Report_2024.pdf'; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=> URL.revokeObjectURL(url),2000);
+    });
+
+    // Subscribe demo
+    document.getElementById('sustBtn').addEventListener('click', ()=>{
+      const email = document.getElementById('sustEmail').value.trim();
+      const msg = document.getElementById('sustMsg');
+      if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent='Please enter a valid email.'; msg.style.color='#ff8b8b'; return; }
+      const list = JSON.parse(localStorage.getItem('temi_sust_list')||'[]');
+      if(list.includes(email)){ msg.textContent='Already subscribed.'; msg.style.color='#f1c232'; }
+      else{ list.push(email); localStorage.setItem('temi_sust_list', JSON.stringify(list)); msg.textContent='Thanks — you are subscribed.'; msg.style.color='#b6f7c1'; document.getElementById('sustEmail').value=''; }
+      setTimeout(()=> msg.textContent='',3000);
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item=>{
+      const q = item.querySelector('.faq-q'); const a = item.querySelector('.faq-a');
+      q.addEventListener('click', ()=>{
+        const open = a.style.display === 'block';
+        document.querySelectorAll('.faq-a').forEach(x=>x.style.display='none');
+        document.querySelectorAll('.faq-item .small').forEach(x=>x.textContent='+');
+        if(!open){ a.style.display='block'; q.querySelector('.small').textContent='−'; }
+      });
+    });
+  </script>
+</body>
+</html>

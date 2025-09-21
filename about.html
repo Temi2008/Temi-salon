@@ -1,0 +1,296 @@
+<!-- Filename: pages/about.html (updated with Awards, Timeline, Masterclasses, Community, Suppliers, Newsletter) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — Temi Hair Salon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050505;--card:#0b0b0b;--gold:#c49a3a;--muted:#a79b8f;--glass: rgba(255,255,255,0.03);--radius:12px;--maxw:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;color:#fff;background:linear-gradient(180deg,#030303 0%, #070707 100%)}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
+
+    /* top */
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand-mark{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#f4e6b0);display:flex;align-items:center;justify-content:center;color:#050505;font-weight:700;font-family:Playfair Display}
+    .brand-meta .title{font-family:Playfair Display;font-weight:700}
+    .brand-meta .sub{font-size:13px;color:var(--muted)}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:18px;align-items:center;padding:22px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+    .hero h1{font-family:Playfair Display;margin:0 0 8px;font-size:32px}
+    .hero p{color:var(--muted);margin:0 0 12px}
+    .cta{display:flex;gap:10px;flex-wrap:wrap}
+
+    /* story */
+    .story{display:grid;grid-template-columns:1fr 420px;gap:18px;margin-top:20px;align-items:start}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px}
+
+    /* stats */
+    .stats{display:flex;gap:12px;margin-top:14px}
+    .stat{background:var(--card);padding:12px;border-radius:10px;min-width:110px;text-align:center}
+    .stat strong{display:block;font-size:18px}
+    .stat span{color:var(--muted);font-size:13px}
+
+    /* team */
+    .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .team-card{background:var(--card);padding:12px;border-radius:12px;text-align:center}
+    .team-card img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+    .team-card h4{margin:10px 0 4px}
+    .team-card p{margin:0;color:var(--muted)}
+
+    /* values & sustainability */
+    .values{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .value{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:12px;border-radius:10px}
+
+    /* press */
+    .press{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
+    .press img{height:44px;object-fit:contain;border-radius:6px;background:#0b0b0b;padding:6px}
+
+    /* faq */
+    .faq{margin-top:18px}
+    .faq-item{background:var(--card);padding:12px;border-radius:10px;margin-bottom:10px}
+    .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .faq-a{color:var(--muted);margin-top:8px;display:none}
+
+    @media(max-width:1000px){.team-grid{grid-template-columns:repeat(2,1fr)}.story{grid-template-columns:1fr} .hero{grid-template-columns:1fr}}
+    @media(max-width:640px){.team-grid{grid-template-columns:1fr}.values{grid-template-columns:1fr}.hero h1{font-size:24px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="brand-mark">TH</div>
+        <div class="brand-meta">
+          <div class="title">Temi Hair Salon</div>
+          <div class="sub">Craft • Community • Care</div>
+        </div>
+      </div>
+      <div><a href="index.html" class="small" style="color:var(--muted)">← Back to home</a></div>
+    </div>
+
+    <section class="hero" aria-labelledby="about-hero">
+      <div>
+        <h1 id="about-hero">Our story — thoughtful hair, trusted hands</h1>
+        <p class="lead">Temi Hair Salon began as a small atelier with a single chair and a big belief: hair is personal, and service should feel like hospitality. Over the years we've grown into a team of specialists who care about technique, hair health and the confidence our work gives clients.</p>
+        <div class="cta"><a class="btn btn-primary" href="quick.html">Book a consult</a><a class="btn btn-ghost" href="#team">Meet the team</a></div>
+
+        <div class="stats" aria-hidden="false">
+          <div class="stat"><strong>7+</strong><span>Years (avg experience)</span></div>
+          <div class="stat"><strong>10k+</strong><span>Happy clients</span></div>
+          <div class="stat"><strong>5</strong><span>Locations & pop-ups</span></div>
+        </div>
+      </div>
+
+      <aside>
+        <div style="background:url('image/ed248977-0cff-4679-b6ad-8872d7a2e76b.jpg') center/cover;height:260px;border-radius:12px"></div>
+        <div style="margin-top:12px" class="card">
+          <strong>Visit</strong>
+          <div class="small" style="margin-top:6px">12 Elegance St, Victoria Island, Lagos</div>
+          <div class="small" style="margin-top:8px">Mon–Sat: 9am — 7pm</div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="story">
+      <div class="card">
+        <h2 style="font-family:Playfair Display">How we craft</h2>
+        <p class="small">Every appointment starts with a consult: understanding hair history, lifestyle and desired outcomes. We choose formulas and techniques that prioritise hair integrity — from Olaplex repairs to bespoke balayage hand-painted for each client.</p>
+
+        <h3 style="margin-top:14px">Community & education</h3>
+        <p class="small">We run monthly masterclasses, pro training and community styling days to keep our team sharp and give back to local stylists.</p>
+
+        <h3 style="margin-top:14px">Sustainability</h3>
+        <p class="small">We prioritise ethically sourced products, refill programs and reduced-waste packaging. Small changes, consistent impact.</p>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3 style="margin-top:0">Our values</h3>
+          <div class="values">
+            <div class="value"><strong>Craft</strong><div class="small" style="margin-top:6px">Technical excellence, precision and creativity</div></div>
+            <div class="value"><strong>Care</strong><div class="small" style="margin-top:6px">Hair health & thoughtful service</div></div>
+            <div class="value"><strong>Community</strong><div class="small" style="margin-top:6px">Education & local partnerships</div></div>
+          </div>
+
+          <div style="margin-top:12px">
+            <h4 style="margin:0">Press & recognition</h4>
+            <div class="press" aria-hidden="true">
+              <img src="image/399d9747-f12e-46bb-a121-1187c620a6af.jpg" alt="press">
+              <img src="image/A professional woman confidently delivers a speech… (2).jpg" alt="press2">
+              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=400&auto=format&fit=crop" alt="press3">
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h4 style="margin:0">Career & join us</h4>
+          <p class="small">We’re hiring stylists and apprentices. Email hello@temihairsalon.com with your portfolio to apply.</p>
+          <a class="btn btn-primary" href="#team" style="margin-top:10px;display:inline-block">See open roles</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="team">
+      <h2 style="font-family:Playfair Display;margin-top:22px">Meet the team</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="image/Braids never go out of style! From classic….jpg" alt="Temi">
+          <h4>Temi — Founder</h4>
+          <p class="small">Creative director & lead colorist. Specialises in balayage & color correction.</p>
+        </div>
+        <div class="team-card">
+          <img src="image/3c82dd08-060e-41a0-8e62-a3a85c8b5b5a.jpg" alt="Sade">
+          <h4>Sade — Senior Stylist</h4>
+          <p class="small">Precision cuts & mens grooming specialist.</p>
+        </div>
+        <div class="team-card">
+          <img src="image/oril.jpg" alt="Lola">
+          <h4>Lola — Extensions</h4>
+          <p class="small">Extensions expert — tape-ins and custom blends.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h3 style="font-family:Playfair Display;margin-top:22px">FAQs</h3>
+      <div class="faq-item">
+        <div class="faq-q">What should I bring to my appointment? <span class="small">+</span></div>
+        <div class="faq-a">Reference photos, a list of recent products used and any allergy info. If you have extensions, bring your existing pieces for matching.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you offer consultations? <span class="small">+</span></div>
+        <div class="faq-a">Yes — consultations are complimentary and recommended for color transformations.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Are walk-ins accepted? <span class="small">+</span></div>
+        <div class="faq-a">We accept a limited number of walk-ins depending on availability. Booking ahead is recommended.</div>
+      </div>
+    </section>
+
+    <section style="margin-top:20px">
+      <div class="card">
+        <h3 style="margin-top:0">Get in touch</h3>
+        <p class="small">For press, partnerships or booking enquiries — email hello@temihairsalon.com or call <strong>+234 800 000 0000</strong>.</p>
+        <div style="margin-top:12px"><a class="btn btn-primary" href="contact.html">Contact us</a> <a class="btn btn-ghost" href="book.html">Book now</a></div>
+      </div>
+    </section>
+
+    <!-- NEW SECTIONS: Awards, Timeline, Masterclasses, Community Projects, Suppliers, Newsletter -->
+    <section id="awards" style="margin-top:20px">
+      <div class="card">
+        <h3 style="margin-top:0">Awards & Recognition</h3>
+        <p class="small">We’re honoured to be recognised locally and regionally for our craft — from Best Salon (2023) to Sustainable Business Award (2024). These recognitions reflect our commitment to quality and responsible practice.</p>
+        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+          <div style="background:linear-gradient(180deg, rgba(196,154,58,0.06), transparent);padding:10px;border-radius:10px;min-width:160px;text-align:center"><strong>Best Salon 2023</strong><div class="small">Local Lifestyle Awards</div></div>
+          <div style="background:linear-gradient(180deg, rgba(196,154,58,0.06), transparent);padding:10px;border-radius:10px;min-width:160px;text-align:center"><strong>Sustainability Award 2024</strong><div class="small">Green Business Network</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline" style="margin-top:20px">
+      <div class="card">
+        <h3 style="margin-top:0">Our journey</h3>
+        <div class="small" style="margin-top:8px">A short timeline of the milestones that shaped Temi Hair Salon.</div>
+        <ol class="small" style="margin-top:12px;padding-left:18px;color:var(--muted)">
+          <li><strong>2016</strong> — Temi opens a single-chair atelier focused on bespoke color work.</li>
+          <li><strong>2018</strong> — Team grows to 4 stylists; first training nights begin.</li>
+          <li><strong>2020</strong> — Expanded to Victoria Island studio; launched refill program.</li>
+          <li><strong>2022</strong> — Launched extensions service and community masterclasses.</li>
+          <li><strong>2024</strong> — Recognised for sustainability and launched multi-location pop-ups.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="masterclasses" style="margin-top:20px">
+      <div class="card">
+        <h3 style="margin-top:0">Masterclasses & Education</h3>
+        <p class="small">Each month we host hands-on classes for both professionals and clients. Topics include colour theory, healthy hair practices, and extension application. Classes are ticketed and include take-home notes and product samples.</p>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <div style="padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);min-width:180px"><strong>Color Basics</strong><div class="small">Monthly</div></div>
+          <div style="padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);min-width:180px"><strong>Extensions 101</strong><div class="small">Quarterly</div></div>
+          <div style="padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);min-width:180px"><strong>Keratin & Repair</strong><div class="small">Bi-monthly</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="community" style="margin-top:20px">
+      <div class="card">
+        <h3 style="margin-top:0">Community & Outreach</h3>
+        <p class="small">Giving back is part of our DNA. We partner with local shelters, run free haircut days for students, and donate product kits to vocational programs. If you have an organisation we should connect with, email hello@temihairsalon.com.</p>
+        <div style="margin-top:12px" class="small">
+          <ul style="padding-left:18px;color:var(--muted)">
+            <li>Free student cut days (annual)</li>
+            <li>Apprentice scholarships (bi-annual)</li>
+            <li>Product donations to shelters</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="suppliers" style="margin-top:20px">
+      <div class="card">
+        <h3 style="margin-top:0">Our trusted suppliers</h3>
+        <p class="small">We carefully curate product partners who meet our performance and sustainability standards.</p>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap">
+          <div style="background:#0b0b0b;padding:8px;border-radius:8px"><img src="image/Embrace the timeless elegance of long, straight….jpg" alt="Kerastase" style="height:36px;object-fit:contain"></div>
+          <div style="background:#0b0b0b;padding:8px;border-radius:8px"><img src="image/5c4c23f5-a6a1-4c14-b3b2-c841dfd88dec.jpg" alt="Olaplex" style="height:36px;object-fit:contain"></div>
+          <div style="background:#0b0b0b;padding:8px;border-radius:8px"><img src="image/2e421c8a-9205-4c68-9ab4-41d7d399a54e.jpg" alt="Organic" style="height:36px;object-fit:contain"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="newsletter" style="margin-top:20px">
+      <div class="card">
+        <h3 style="margin-top:0">Stay in the loop</h3>
+        <p class="small">Sign up for our newsletter — exclusive offers, masterclass invites and salon news.</p>
+        <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+          <input id="newsEmail" placeholder="Your email" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff">
+          <button id="newsBtn" class="btn btn-primary">Subscribe</button>
+        </div>
+        <div id="newsMsg" class="small" style="margin-top:8px;color:var(--muted)"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // faq accordion
+    document.querySelectorAll('.faq-item').forEach(item=>{
+      const q = item.querySelector('.faq-q'); const a = item.querySelector('.faq-a');
+      q.addEventListener('click', ()=>{
+        const open = a.style.display === 'block';
+        document.querySelectorAll('.faq-a').forEach(x=>x.style.display='none');
+        document.querySelectorAll('.faq-item .small').forEach(x=>x.textContent='+');
+        if(!open){ a.style.display='block'; q.querySelector('.small').textContent='−'; }
+      });
+    });
+
+    // Newsletter subscribe (local demo)
+    document.getElementById('newsBtn').addEventListener('click', ()=>{
+      const email = document.getElementById('newsEmail').value.trim();
+      const msg = document.getElementById('newsMsg');
+      if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        msg.textContent = 'Please enter a valid email.'; msg.style.color = '#ff8b8b'; return;
+      }
+      const list = JSON.parse(localStorage.getItem('temi_news_list')||'[]');
+      if(list.includes(email)) { msg.textContent = 'You are already subscribed.'; msg.style.color='#f1c232'; }
+      else{ list.push(email); localStorage.setItem('temi_news_list', JSON.stringify(list)); msg.textContent = 'Thanks — check your inbox for a welcome note.'; msg.style.color='#b6f7c1'; document.getElementById('newsEmail').value=''; }
+      setTimeout(()=> msg.textContent='', 3500);
+    });
+
+    // Keep accessibility focus if arriving with fragment
+    if(location.hash){
+      const el = document.querySelector(location.hash);
+      if(el) setTimeout(()=> el.scrollIntoView({behavior:'smooth'}), 80);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Temi Hair Salon — Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050505; /* deep black */
+      --gold:#c49a3a;
+      --muted:#a79b8f;
+      --glass: rgba(255,255,255,0.04);
+      --card: #0b0b0b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;color:#eee;background:linear-gradient(180deg,#030303 0%, #070707 100%);}
+    a{color:inherit;text-decoration:none}
+
+    /* HEADER / NAV */
+    .topbar{position:fixed;inset:0 0 auto 0;z-index:60}
+    header{backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(5,5,5,0.6), rgba(5,5,5,0.35));padding:14px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#f7e7b1);display:flex;align-items:center;justify-content:center;color:#050505;font-weight:700;font-family:Playfair Display;font-size:18px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    .brand h1{margin:0;font-family:Playfair Display;font-size:20px;letter-spacing:0.6px}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    nav{display:flex;align-items:center;gap:22px}
+    .nav-links{display:flex;gap:10px;align-items:center}
+    .nav-item{position:relative}
+    .nav-link{padding:8px 12px;border-radius:8px;display:inline-block;font-weight:600;color:#fff}
+    .nav-link:hover{background:var(--glass)}
+    .dropdown{position:absolute;left:0;top:calc(100% + 12px);min-width:260px;background:linear-gradient(180deg, rgba(10,10,10,0.98), rgba(8,8,8,0.95));box-shadow:0 18px 40px rgba(0,0,0,0.6);border-radius:12px;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;opacity:0;transform:translateY(8px);pointer-events:none;transition:all .28s ease}
+    .nav-item:hover .dropdown,.nav-item.open .dropdown{opacity:1;transform:translateY(0);pointer-events:auto}
+    .drop-link{display:flex;gap:12px;align-items:center;padding:10px;border-radius:8px}
+    .drop-link img{width:64px;height:48px;object-fit:cover;border-radius:8px}
+    .drop-link div{line-height:1}
+    .drop-link small{color:var(--muted)}
+
+    /* Mobile */
+    .mobile-toggle{display:none;background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:8px}
+    @media(max-width:900px){
+      header{padding:12px 16px}
+      .nav-links{display:none}
+      .mobile-toggle{display:inline-flex}
+      .mobile-menu{position:fixed;inset:74px 14px auto 14px;background:linear-gradient(180deg, rgba(3,3,3,0.95), rgba(6,6,6,0.95));backdrop-filter: blur(8px);border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.04);max-height:70vh;overflow:auto}
+      .dropdown{position:static;transform:none;opacity:1;pointer-events:auto;padding:6px 0;background:transparent;box-shadow:none;border-radius:0}
+      .drop-link img{display:none}
+    }
+
+    /* HERO */
+    .hero{min-height:86vh;display:grid;grid-template-columns:1fr 460px;gap:36px;padding:120px 6vw 60px 6vw;align-items:center}
+    .hero-left{max-width:760px}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--gold),#f4e6b0);color:#050505;font-weight:700;margin-bottom:18px}
+    h2{font-family:Playfair Display;font-size:44px;margin:0 0 12px;line-height:1.02}
+    p.lead{color:var(--muted);font-size:16px;margin:0 0 20px}
+    .cta-row{display:flex;gap:12px;margin-top:18px}
+    .btn{padding:12px 18px;border-radius:12px;font-weight:700;display:inline-flex;gap:10px;align-items:center}
+    .btn-primary{background:linear-gradient(90deg,var(--gold),#f4e6b0);color:#050505}
+    .btn-ghost{border:1px solid rgba(255,255,255,0.06);color:#fff;background:transparent}
+    .hero-right{background:url('image/err.jpg') center/cover;border-radius:18px;height:520px;box-shadow:0 20px 60px rgba(0,0,0,0.6);display:flex;flex-direction:column;justify-content:end;padding:18px}
+    .card-like{background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.15));padding:14px;border-radius:12px}
+
+    /* Sections */
+    section{padding:64px 6vw;border-top:1px solid rgba(255,255,255,0.02)}
+    .grid{display:grid;gap:18px}
+    .services-grid{grid-template-columns:repeat(3,1fr)}
+    .service{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;min-height:200px}
+    .service h3{margin:8px 0}
+
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .gallery img{width:100%;height:220px;object-fit:cover;border-radius:12px}
+
+    .testimonials{display:flex;flex-direction:column;gap:12px}
+    .testi{background:var(--card);padding:18px;border-radius:12px}
+
+    /* Footer */
+    footer{padding:36px 6vw;background:linear-gradient(180deg,#070707,#050505);border-top:1px solid rgba(255,255,255,0.03);margin-top:32px}
+    .footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+
+    /* Responsive tweaks */
+    @media(max-width:1100px){.hero{grid-template-columns:1fr 360px}}
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr;padding-top:110px}
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:560px){
+      h2{font-size:32px}
+      .services-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+    }
+
+    /* little flourishes */
+    .muted{color:var(--muted)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-weight:600}
+    .small{font-size:13px}
+    .section-title{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  </style>
+<style>
+  /* filters */
+  .filters{margin:18px 0;display:flex;gap:10px;flex-wrap:wrap}
+  .pill{padding:8px 12px;border-radius:999px;background:var(--card);border:1px solid rgba(255,255,255,0.02);cursor:pointer;color:var(--muted)}
+  .pill.active{background:linear-gradient(90deg,var(--gold),#f4e6b0);color:#050505;border-color:transparent}
+
+  /* services grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:12px}
+  .service-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;min-height:320px;box-shadow:0 12px 30px rgba(0,0,0,0.5)}
+  .service-media{width:100%;height:160px;object-fit:cover;display:block}
+  .service-body{padding:14px;flex:1;display:flex;flex-direction:column}
+  .service-title{font-family:Playfair Display;margin:0 0 6px}
+  .service-desc{color:var(--muted);font-size:14px;margin:0 0 12px;flex:1}
+  .service-footer{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .price{font-weight:700;color:var(--gold)}
+  .small{font-size:13px;color:var(--muted)}
+
+  /* pricing strip */
+  .pricing-strip{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+  .price-card{background:rgba(196,154,58,0.06);padding:12px;border-radius:10px;min-width:180px}
+
+  /* FAQ */
+  .faq{margin-top:24px}
+  .faq-item{background:var(--card);border-radius:10px;padding:12px;margin-bottom:10px}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+  .faq-a{color:var(--muted);margin-top:8px;display:none}
+
+  /* responsive */
+  @media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.hero-right{display:none}}
+
+  /* little flourishes */
+  .muted{color:var(--muted)}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-weight:600}
+  .small{font-size:13px}
+  .section-title{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+</style>
+
+</head>
+<body>
+  <div class="topbar">
+    <header>
+      <div class="brand">
+        <div class="logo">TH</div>
+        <div>
+          <h1>Temi Hair Salon</h1>
+          <p class="small muted">Luxury • Craft • Confidence</p>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav-links" id="navLinks">
+
+          <!-- Home (dropdown) -->
+          <div class="nav-item" data-name="home">
+            <a class="nav-link" href="#home">Home ▾</a>
+            <div class="dropdown">
+              <a class="drop-link" href="#hero"><img src="image/tre.jpg" alt=""><div><strong>Landing Experience</strong><br><small class="muted">Hero & first impression</small></div></a>
+              <a class="drop-link" href="special.html"><img src="image/err.jpg" alt=""><div><strong>Special Offers</strong><br><small class="muted">Promos & packages</small></div></a>
+              <a class="drop-link" href="client.html"><img src="image/kil (1).jpg" alt=""><div><strong>Client Stories</strong><br><small class="muted">Before & after</small></div></a>
+              <a class="drop-link" href="#gallery"><img src="image/kil (2).jpg" alt=""><div><strong>Salon Tour</strong><br><small class="muted">Interior & vibe</small></div></a>
+              <a class="drop-link" href="quick.html"><img src="image/kil (3).jpg" alt=""><div><strong>Quick Book</strong><br><small class="muted">Reserve a chair</small></div></a>
+              <a class="drop-link" href="#contact"><img src="image/land.jpg" alt=""><div><strong>Find Us</strong><br><small class="muted">Hours & contact</small></div></a>
+            </div>
+          </div>
+          <!-- Services -->
+          <div class="nav-item" data-name="services">
+            <a class="nav-link" href="#services">Services ▾</a>
+            <div class="dropdown">
+              <a class="drop-link" href="#service-cut"><img src="image/kil (2).jpg" alt=""><div><strong>Haircuts</strong><br><small class="muted">Precision cuts</small></div></a>
+              <a class="drop-link" href="#service-color"><img src="image/gty.jpg" alt=""><div><strong>Coloring</strong><br><small class="muted">Balayage, highlights</small></div></a>
+              <a class="drop-link" href="#service-extensions"><img src="image/jio.jpg" alt=""><div><strong>Extensions</strong><br><small class="muted">Tape-ins, weaves</small></div></a>
+              <a class="drop-link" href="#service-styling"><img src="image/int.jpg" alt=""><div><strong>Styling</strong><br><small class="muted">Bridal & events</small></div></a>
+              <a class="drop-link" href="#service-treatments"><img src="image/land.jpg" alt=""><div><strong>Treatments</strong><br><small class="muted">Keratin & repair</small></div></a>
+              <a class="drop-link" href="#service-kids"><img src="image/kil (4).jpg" alt=""><div><strong>Kids' Cuts</strong><br><small class="muted">Gentle & fun</small></div></a>
+            </div>
+          </div>
+
+          <!-- Styles -->
+          <div class="nav-item" data-name="styles">
+            <a class="nav-link" href="#styles">Styles ▾</a>
+            <div class="dropdown">
+              <a class="drop-link" href="#style-afro"><img src="image/gtr.jpg" alt=""><div><strong>Afro & Curls</strong><br><small class="muted">Cut & define</small></div></a>
+              <a class="drop-link" href="#style-braids"><img src="image/int.jpg" alt=""><div><strong>Braids</strong><br><small class="muted">Cornrows, box braids</small></div></a>
+              <a class="drop-link" href="#style-weaves"><img src="image/kil (2).jpg" alt=""><div><strong>Weaves</strong><br><small class="muted">Sew-ins</small></div></a>
+              <a class="drop-link" href="#style-wigs"><img src="image/kil (3).jpg" alt=""><div><strong>Wigs</strong><br><small class="muted">Custom & styling</small></div></a>
+              <a class="drop-link" href="#style-updos"><img src="image/or.jpg" alt=""><div><strong>Updos</strong><br><small class="muted">Events & weddings</small></div></a>
+              <a class="drop-link" href="#style-dreadlocks"><img src="image/land.jpg" alt=""><div><strong>Dreadlocks</strong><br><small class="muted">Starter & maintenance</small></div></a>
+            </div>
+          </div>
+
+          <!-- About -->
+          <div class="nav-item" data-name="about">
+            <a class="nav-link" href="#about">About ▾</a>
+            <div class="dropdown">
+              <a class="drop-link" href="about.html"><img src="image/int.jpg" alt=""><div><strong>Our Story</strong><br><small class="muted">How Temi began</small></div></a>
+              <a class="drop-link" href="#team"><img src="image/kil (2).jpg" alt=""><div><strong>Meet The Team</strong><br><small class="muted">Stylists & vision</small></div></a>
+              <a class="drop-link" href="car.html"><img src="image/kil (1).jpg" alt=""><div><strong>Careers</strong><br><small class="muted">Join our team</small></div></a>
+              <a class="drop-link" href="#press"><img src="image/kil (4).jpg" alt=""><div><strong>Press</strong><br><small class="muted">Featured articles</small></div></a>
+              <a class="drop-link" href="sust.html"><img src="image/kil (4).jpg" alt=""><div><strong>Sustainability</strong><br><small class="muted">Ethical choices</small></div></a>
+              <a class="drop-link" href="#faqs"><img src="image/gty.jpg" alt=""><div><strong>FAQs</strong><br><small class="muted">All answers</small></div></a>
+            </div>
+          </div>
+
+          <!-- Contact / Book -->
+          <div class="nav-item" data-name="contact">
+            <a class="nav-link" href="#contact">Contact ▾</a>
+            <div class="dropdown">
+              <a class="drop-link" href="#book"><img src="image/ori.jpg" alt=""><div><strong>Book Appointment</strong><br><small class="muted">Reserve a slot</small></div></a>
+              <a class="drop-link" href="#prices"><img src="image/land.jpg" alt=""><div><strong>Pricing</strong><br><small class="muted">Transparent rates</small></div></a>
+              <a class="drop-link" href="#giftcards"><img src="image/gtr.jpg" alt=""><div><strong>Gift Cards</strong><br><small class="muted">Perfect present</small></div></a>
+              <a class="drop-link" href="#partners"><img src="image/or.jpg" alt=""><div><strong>Partners</strong><br><small class="muted">Products we trust</small></div></a>
+              <a class="drop-link" href="#locations"><img src="image/int.jpg" alt=""><div><strong>Locations</strong><br><small class="muted">Where to find us</small></div></a>
+              <a class="drop-link" href="#contact-form"><img src="image/gty.jpg" alt=""><div><strong>Get In Touch</strong><br><small class="muted">Send a message</small></div></a>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="mobile-toggle" id="mobileToggle">☰</button>
+      </nav>
+    </header>
+  </div>
+
+  <!-- MOBILE MENU (hidden by default) -->
+  <div id="mobileMenu" style="display:none"></div>
+
+  <!-- HERO / HOME -->
+  <main id="home">
+    <section class="hero" id="hero">
+      <div class="hero-left">
+        <span class="kicker">Luxury Salon — Temi</span>
+        <h2>Where craft meets confidence — get the look that tells your story.</h2>
+        <p class="lead">Temi Hair Salon crafts elevated hair experiences — precision cuts, bespoke color, and styling treated like couture. Our stylists blend technique, premium products, and a comfortable atmosphere to deliver runway‑ready results for everyday life.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="quick.html">Book Now</a>
+          <a class="btn btn-ghost" href="#gallery">See Our Work</a>
+        </div>
+
+        <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
+          <div class="pill small">Black & Gold aesthetic</div>
+          <div class="pill small">Complimentary consult</div>
+          <div class="pill small">Pro stylists</div>
+        </div>
+
+        <div style="margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <div style="background:var(--card);padding:12px;border-radius:10px"><strong>Experienced Stylists</strong><p class="muted small" style="margin:6px 0 0">Average 7+ years</p></div>
+          <div style="background:var(--card);padding:12px;border-radius:10px"><strong>Premium Brands</strong><p class="muted small" style="margin:6px 0 0">Kerastase, Olaplex</p></div>
+          <div style="background:var(--card);padding:12px;border-radius:10px"><strong>Easy Booking</strong><p class="muted small" style="margin:6px 0 0">Online & Walk-ins</p></div>
+        </div>
+
+      </div>
+
+      <aside class="hero-right">
+        <div class="card-like">
+          <p class="small muted">Signature Look</p>
+          <h3 style="margin:6px 0 0">Gold‑Toned Balayage</h3>
+          <p class="muted small" style="margin:8px 0 0">Long-lasting tone and radiant shine — styled for both photos and everyday life.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SERVICES -->
+
+    <section class="hero" aria-labelledby="services-hero">
+      <div class="hero-left">
+        <h1 id="services-hero">Salon Services crafted to impress</h1>
+        <p class="small">Precision cuts, bespoke color, extensions, treatments and event styling — curated packages and transparent pricing for every need.</p>
+
+        <div class="cta-row" style="margin-top:12px">
+          <a class="btn btn-primary" href="quick.html">Book a service</a>
+          <a class="btn btn-ghost" href="#pricing">See pricing</a>
+        </div>
+
+        <div style="margin-top:18px">
+          <div class="filters" role="tablist" aria-label="Filter services">
+            <div class="pill active" data-filter="all">All</div>
+            <div class="pill" data-filter="cuts">Cuts</div>
+            <div class="pill" data-filter="color">Color</div>
+            <div class="pill" data-filter="extensions">Extensions</div>
+            <div class="pill" data-filter="treatment">Treatments</div>
+            <div class="pill" data-filter="styling">Styling</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-rit" style="text-align:right">
+       
+        <div style="margin-top:12px;background:var(--card);padding:12px;border-radius:10px">
+          <strong>Need help choosing?</strong>
+          <p class="small" style="margin:8px 0 0;color:var(--muted)">Call +234 800 000 0000 for a free consult — or book an in-salon consultation.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- hero -->
+    <!-- services grid -->
+    <section aria-label="Services list">
+      <div class="grid" id="servicesGrid">
+        <!-- Card 1: Precision Cut -->
+        <article class="service-card" data-category="cuts">
+          <img class="service-media" src="image/precision.jpg" alt="Precision haircut">
+          <div class="service-body">
+            <h3 class="service-title">Precision Cut</h3>
+            <p class="service-desc">Face-framing and tailored cuts using professional techniques to suit hair type and lifestyle.</p>
+            <div class="service-footer">
+              <div>
+                <div class="price">From ₦2,500</div>
+                <div class="small">Includes consultation & styling</div>
+              </div>
+              <div><a class="btn btn-primary" href="quick.html">Book</a></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: Balayage / Color -->
+        <article class="service-card" data-category="color">
+          <img class="service-media" src="image/baly.jpg" alt="Balayage color">
+          <div class="service-body">
+            <h3 class="service-title">Color & Balayage</h3>
+            <p class="service-desc">Hand-painted color, toners and corrections using salon-grade formulas for lasting tone and shine.</p>
+            <div class="service-footer">
+              <div>
+                <div class="price">From ₦35,000</div>
+                <div class="small">Custom quotes depend on length and technique</div>
+              </div>
+              <div><a class="btn btn-primary" href="quick.html">Book</a></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: Extensions -->
+        <article class="service-card" data-category="extensions">
+          <img class="service-media" src="image/30 Short Haircuts for Black Women to Copy This….jpg" alt="Hair extensions">
+          <div class="service-body">
+            <h3 class="service-title">Extensions</h3>
+            <p class="service-desc">Premium human-hair extensions (tape-ins, sew-ins) installed by certified stylists for natural blending.</p>
+            <div class="service-footer">
+              <div>
+                <div class="price">From ₦25,000</div>
+                <div class="small">Price varies by length & method</div>
+              </div>
+              <div><a class="btn btn-primary" href="quick.html">Book</a></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: Keratin & Repairs -->
+        <article class="service-card" data-category="treatment">
+          <img class="service-media" src="image/43f884d6-c43c-474b-a8b4-5be0b71d16c6.jpg" alt="Hair treatment">
+          <div class="service-body">
+            <h3 class="service-title">Treatments</h3>
+            <p class="service-desc">Keratin smoothing, Olaplex bond repair and deep conditioning to restore health and shine.</p>
+            <div class="service-footer">
+              <div>
+                <div class="price">From ₦15,000</div>
+                <div class="small">Depends on service selected</div>
+              </div>
+              <div><a class="btn btn-primary" href="quick.html">Book</a></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5: Event Styling -->
+        <article class="service-card" data-category="styling">
+          <img class="service-media" src="image/5c4c23f5-a6a1-4c14-b3b2-c841dfd88dec.jpg" alt="Event styling">
+          <div class="service-body">
+            <h3 class="service-title">Event & Bridal Styling</h3>
+            <p class="service-desc">Updos, bridal trials and red-carpet looks with trial runs and day-of styling available.</p>
+            <div class="service-footer">
+              <div>
+                <div class="price">From ₦20,000</div>
+                <div class="small">Bridal packages available</div>
+              </div>
+              <div><a class="btn btn-primary" href="quick.html">Book</a></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6: Kids -->
+        <article class="service-card" data-category="cuts">
+          <img class="service-media" src="image/kid.jpg" alt="Kids haircut">
+          <div class="service-body">
+            <h3 class="service-title">Kids' Cuts</h3>
+            <p class="service-desc">Friendly, quick and gentle haircuts for children with keepsakes for first haircuts.</p>
+            <div class="service-footer">
+              <div>
+                <div class="price">From ₦1,800</div>
+                <div class="small">Calm & safe environment</div>
+              </div>
+              <div><a class="btn btn-primary" href="quick.html">Book</a></div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- pricing & CTA -->
+      <div id="pricing" class="pricing-strip" style="margin-top:22px">
+        <div class="price-card">
+          <strong>Starter Cut</strong>
+          <div class="small">From ₦2,500</div>
+        </div>
+        <div class="price-card">
+          <strong>Balayage</strong>
+          <div class="small">From ₦35,000</div>
+        </div>
+        <div class="price-card">
+          <strong>Keratin</strong>
+          <div class="small">From ₦25,000</div>
+        </div>
+        <div style="margin-left:auto">
+          <a class="btn btn-primary" href="quick.html">Book your appointment</a>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq" style="margin-top:24px">
+        <h3 style="margin:0 0 12px;font-family:Playfair Display">Frequently asked</h3>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <div>How long does a balayage appointment take?</div>
+            <div class="small">+</div>
+          </div>
+          <div class="faq-a">A typical balayage takes 2.5–4 hours depending on hair length and desired lightness.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <div>Do you offer color consultations?</div>
+            <div class="small">+</div>
+          </div>
+          <div class="faq-a">Yes — consultations are complimentary and help us match tone and technique to your lifestyle.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <div>Can I bring reference photos?</div>
+            <div class="small">+</div>
+          </div>
+          <div class="faq-a">Please do — photos help the stylist achieve your desired result faster and more accurately.</div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+    <section id="services">
+      <div class="section-title">
+        <h2 style="font-size:28px;margin:0">Services</h2>
+        <div class="muted small">Curated to be luxurious and result-driven</div>
+      </div>
+      <div class="grid services-grid">
+        <article class="service" id="service-cut">
+          <h3>Precision Cuts</h3>
+          <p class="muted">From classic trims to editorial transformations — every cut is sculpted for your face and lifestyle.</p>
+          <ul class="muted small" style="margin-top:12px">
+            <li>Short & long hair</li>
+            <li>Men's barbering</li>
+            <li>Child-friendly cuts</li>
+          </ul>
+        </article>
+
+        <article class="service" id="service-color">
+          <h3>Color & Balayage</h3>
+          <p class="muted">Bespoke color — hand-painted balayage, dimensional highlights, color correction.</p>
+          <ul class="muted small" style="margin-top:12px">
+            <li>Balayage & ombré</li>
+            <li>Full color</li>
+            <li>Toners & gloss</li>
+          </ul>
+        </article>
+
+        <article class="service" id="service-extensions">
+          <h3>Extensions</h3>
+          <p class="muted">Premium human-hair extensions installed by certified stylists.</p>
+          <ul class="muted small" style="margin-top:12px">
+            <li>Tape-ins</li>
+            <li>Sew-ins</li>
+            <li>Custom matching</li>
+          </ul>
+        </article>
+
+        <article class="service" id="service-styling">
+          <h3>Event Styling</h3>
+          <p class="muted">Bridal, editorial, and event-ready updos and finishes.</p>
+          <ul class="muted small" style="margin-top:12px">
+            <li>Bridal packages</li>
+            <li>Red carpet looks</li>
+            <li>Photo-shoot styling</li>
+          </ul>
+        </article>
+
+        <article class="service" id="service-treatments">
+          <h3>Treatments</h3>
+          <p class="muted">Repair, keratin smoothing, and deep conditioning to restore healthy hair.</p>
+          <ul class="muted small" style="margin-top:12px">
+            <li>Keratin smoothing</li>
+            <li>Olaplex bond repair</li>
+            <li>Scalp therapy</li>
+          </ul>
+        </article>
+
+        <article class="service" id="service-kids">
+          <h3>Kids & Gentle Care</h3>
+          <p class="muted">Comfortable, friendly care for little clients and first-time salon visitors.</p>
+          <ul class="muted small" style="margin-top:12px">
+            <li>Kids' styling</li>
+            <li>Mom & baby packages</li>
+            <li>First haircut keepsakes</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- STYLES / GALLERY -->
+    <section id="styles">
+      <div class="section-title">
+        <h2 style="font-size:28px;margin:0">Signature Styles & Gallery</h2>
+        <div class="muted small">Across textures, lengths and finishes</div>
+      </div>
+
+      <div class="gallery" id="gallery">
+        <img src="image/gty.jpg" alt="">
+        <img src="image/err.jpg" alt="">
+        <img src="image/kil (2).jpg" alt="">
+        <img src="image/kil (3).jpg" alt="">
+        <img src="image/land.jpg" alt="">
+        <img src="image/tre.jpg" alt="">
+        <img src="image/kil (4).jpg" alt="">
+        <img src="image/gtr.jpg" alt="">
+      </div>
+
+      <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="quick.html">Book Your Trial</a>
+        <a class="btn btn-ghost" href="#prices">See Pricing</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-title">
+        <h2 style="font-size:28px;margin:0">About Temi</h2>
+        <div class="muted small">A story of craft and community</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:420px 1fr;gap:18px;align-items:start">
+        <img src="image/jio.jpg" alt="" style="width:100%;height:420px;object-fit:cover;border-radius:12px">
+        <div>
+          <h3>Our Philosophy</h3>
+          <p class="muted">Founded to bring personalised hair services with an elevated hospitality experience. We believe every client deserves a considered, long-lasting look and a calm, confident appointment experience.</p>
+
+          <h4 style="margin-top:18px">Community & Education</h4>
+          <p class="muted">We host monthly masterclasses and training programs so our stylists and clients stay inspired. Sustainability and ethical sourcing are at our core.</p>
+
+          <h4 style="margin-top:18px">Press & Recognition</h4>
+          <p class="muted">Featured in local lifestyle outlets and recommended by fashion stylists for precision and taste.</p>
+        </div>
+      </div>
+
+      <div id="team" style="margin-top:26px">
+        <h3>Meet the Team</h3>
+        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+          <div style="width:220px;background:var(--card);padding:12px;border-radius:12px">
+            <img src="image/or.jpg" alt="" style="width:100%;height:180px;object-fit:cover;border-radius:10px">
+            <h4 style="margin:10px 0 0">Temi — Founder</h4>
+            <p class="muted small">Creative director & lead colorist</p>
+          </div>
+          <div style="width:220px;background:var(--card);padding:12px;border-radius:12px">
+            <img src="image/ori.jpg" alt="" style="width:100%;height:180px;object-fit:cover;border-radius:10px">
+            <h4 style="margin:10px 0 0">Sade — Senior Stylist</h4>
+            <p class="muted small">Precision cuts & mens styles</p>
+          </div>
+          <div style="width:220px;background:var(--card);padding:12px;border-radius:12px">
+            <img src="image/oril.jpg" alt="" style="width:100%;height:180px;object-fit:cover;border-radius:10px">
+            <h4 style="margin:10px 0 0">Lola — Extensions</h4>
+            <p class="muted small">Extensions specialist</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS & PRICING -->
+    <section id="testimonials">
+      <div class="section-title">
+        <h2 style="font-size:28px;margin:0">What clients say</h2>
+        <div class="muted small">Real results, real talk</div>
+      </div>
+      <div class="testimonials">
+        <div class="testi">“Temi transformed my hair — best decision ever. The team is warm and the results speak for themselves.” — <strong>Aisha</strong></div>
+        <div class="testi">“Professional, punctual and so talented. I love how they preserved my hair during coloring.” — <strong>Chinedu</strong></div>
+        <div class="testi">“From consultation to finish, 5 stars — very premium experience.” — <strong>Jade</strong></div>
+      </div>
+
+      <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+        <div style="background:linear-gradient(180deg,rgba(196,154,58,0.12),transparent);padding:12px;border-radius:10px;min-width:220px">
+          <h4 style="margin:0">Starter Cut</h4>
+          <p class="muted small">From ₦2,500 — includes consultation & finish</p>
+        </div>
+        <div style="background:linear-gradient(180deg,rgba(196,154,58,0.12),transparent);padding:12px;border-radius:10px;min-width:220px">
+          <h4 style="margin:0">Balayage</h4>
+          <p class="muted small">From ₦35,000 — bespoke color</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING / CONTACT -->
+    <section id="book">
+      <div class="section-title">
+        <h2 style="font-size:28px;margin:0">Book an Appointment</h2>
+        <div class="muted small">Easy online booking — reserve your time</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 420px;gap:18px;align-items:start">
+        <form id="bookingForm" style="background:var(--card);padding:18px;border-radius:12px">
+          <label class="small muted">Full name</label>
+          <input name="name" required placeholder="e.g. Adaeze" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-bottom:12px;background:transparent;color:#fff">
+
+          <label class="small muted">Service</label>
+          <select name="service" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-bottom:12px;background:transparent;color:#fff">
+            <option>Precision Cut</option>
+            <option>Balayage</option>
+            <option>Extensions</option>
+            <option>Keratin Treatment</option>
+            <option>Bridal Styling</option>
+          </select>
+
+          <label class="small muted">Date & Time</label>
+          <input type="datetime-local" name="datetime" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-bottom:12px;background:transparent;color:#fff">
+
+          <label class="small muted">Phone</label>
+          <input name="phone" placeholder="+234 800 000 0000" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-bottom:12px;background:transparent;color:#fff">
+
+          <label class="small muted">Notes</label>
+          <textarea name="notes" placeholder="Tell us about your hair history" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-bottom:12px;background:transparent;color:#fff;min-height:120px"></textarea>
+
+          <button class="btn btn-primary" type="submit">Request Booking</button>
+        </form>
+
+        <aside style="background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px">
+          <h3 style="margin-top:0">Visit Us</h3>
+          <p class="muted small">Temi Hair Salon • 12 Elegance St, Victoria Island, Lagos</p>
+          <p class="muted small">Mon–Sat: 9am — 7pm</p>
+
+          <h4 style="margin-top:12px">Contact</h4>
+          <p class="muted small">hello@temihairsalon.com • +234 800 000 0000</p>
+
+          <div style="margin-top:12px">
+            <a class="small muted" href="#contact-form">Send a message</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CONTACT FORM LONG PAGE -->
+    <section id="contact" style="padding-bottom:120px">
+      <div class="section-title">
+        <h2 style="font-size:28px;margin:0">Contact & Locations</h2>
+        <div class="muted small">Multiple ways to reach us</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 420px;gap:18px;align-items:start">
+        <div>
+          <h3>Send a message</h3>
+          <form id="contact-form" style="background:var(--card);padding:18px;border-radius:12px">
+            <input placeholder="Your name" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-bottom:12px;background:transparent;color:#fff">
+            <input placeholder="Email" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-bottom:12px;background:transparent;color:#fff">
+            <textarea placeholder="Message" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-bottom:12px;background:transparent;color:#fff;min-height:160px"></textarea>
+            <button class="btn btn-primary" type="button">Send Message</button>
+          </form>
+
+          <div style="margin-top:18px">
+            <h4>Other Locations</h4>
+            <ul class="muted small">
+              <li>Ikoyi Studio — 25 Palm Ave</li>
+              <li>Surulere — 4 Artisan Rd</li>
+              <li>Festac Pop-up — weekends</li>
+            </ul>
+          </div>
+        </div>
+
+        <aside style="background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px">
+          <h3>Gift & Corporate</h3>
+          <p class="muted small">Gift cards and corporate packages available. Email hello@temihairsalon.com to partner.</p>
+          <div style="height:220px;background:url('image/a9c41ca7-13d8-44f4-b69d-d7cbf48520e0.jpg') center/cover;border-radius:10px;margin-top:12px"></div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3 style="margin:0">Temi Hair Salon</h3>
+        <p class="muted small">Premium hair services • Lagos</p>
+      </div>
+      <div>
+        <h4 style="margin:0">Quick Links</h4>
+        <p class="muted small">Home • Services • Styles • About • Contact</p>
+      </div>
+      <div>
+        <h4 style="margin:0">Follow</h4>
+        <p class="muted small">Instagram • Facebook • TikTok</p>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;border-top:1px solid rgba(255,255,255,0.03);padding-top:18px;display:flex;justify-content:space-between;align-items:center">
+      <p class="muted small">© <span id="year"></span> Temi Hair Salon — All rights reserved</p>
+      <p class="muted small">Designed by <strong>You</strong> • Powered by Temi</p>
+    </div>
+  </footer>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navLinks = document.getElementById('navLinks');
+
+    mobileToggle.addEventListener('click', ()=>{
+      if(mobileMenu.style.display === 'none' || mobileMenu.style.display === ''){
+        mobileMenu.style.display = 'block';
+        mobileMenu.innerHTML = navLinks.innerHTML;
+        // convert large dropdowns into accordion
+        Array.from(mobileMenu.querySelectorAll('.nav-item')).forEach(item=>{
+          const label = item.querySelector('.nav-link');
+          const dd = item.querySelector('.dropdown');
+          if(dd){
+            dd.style.display='none';
+            label.addEventListener('click', (e)=>{e.preventDefault();dd.style.display = dd.style.display === 'none' ? 'block' : 'none';});
+          }
+        });
+      } else {
+        mobileMenu.style.display = 'none';
+      }
+    });
+
+    // Make dropdowns clickable on touch / open on click
+    document.querySelectorAll('.nav-item .nav-link').forEach(link=>{
+      link.addEventListener('click', (e)=>{
+        const parent = link.closest('.nav-item');
+        // on wide screens allow link to go to section (anchor). On click, toggle dropdown instead.
+        if(window.innerWidth > 900){
+          e.preventDefault(); // open dropdown instead of jump
+          parent.classList.toggle('open');
+        }
+      });
+    });
+
+    // Smooth scroll for anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth',block:'start'});
+          // close mobile menu after click
+          if(window.innerWidth <= 900) mobileMenu.style.display = 'none';
+        }
+      })
+    });
+
+    // Booking form basic handler (demo)
+    document.getElementById('bookingForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('Thanks! Your request has been received. We will contact you shortly. (Demo)');
+      this.reset();
+    });
+
+    // small accessibility: close dropdowns on outside click
+    document.addEventListener('click', function(e){
+      if(!e.target.closest('.nav-item')){
+        document.querySelectorAll('.nav-item.open').forEach(it=>it.classList.remove('open'));
+      }
+    });
+  </script>
+</body>
+</html>

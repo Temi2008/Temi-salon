@@ -1,0 +1,403 @@
+<!-- Filename: pages/specials.html (updated with 3 features: modal prefill, email signup, share controls) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Special Offers — Temi Hair Salon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050505;
+      --card:#0b0b0b;
+      --gold:#c49a3a;
+      --muted:#a79b8f;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      --maxw:1100px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#030303 0%, #070707 100%);color:#fff;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
+
+    /* header */
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand-mark{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#f4e6b0);display:flex;align-items:center;justify-content:center;color:#050505;font-weight:700;font-family:Playfair Display}
+    .brand-meta .title{font-family:Playfair Display;font-weight:700}
+    .brand-meta .sub{font-size:13px;color:var(--muted)}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:center;padding:20px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+    .hero h1{font-family:Playfair Display;margin:0 0 8px;font-size:30px}
+    .hero p{color:var(--muted);margin:0 0 12px}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:10px 14px;border-radius:10px;font-weight:700;display:inline-flex;gap:10px;align-items:center}
+    .btn-primary{background:linear-gradient(90deg,var(--gold),#f4e6b0);color:#050505}
+    .btn-ghost{border:1px solid rgba(255,255,255,0.06);color:#fff;background:transparent}
+
+    /* offers grid */
+    .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    .offer{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;min-height:320px}
+    .offer img{width:100%;height:170px;object-fit:cover;display:block}
+    .offer-body{padding:14px;flex:1;display:flex;flex-direction:column}
+    .offer-title{font-family:Playfair Display;margin:0 0 8px}
+    .offer-desc{color:var(--muted);flex:1;margin:0 0 12px}
+    .offer-foot{display:flex;align-items:center;justify-content:space-between}
+
+    /* promo code box */
+    .promo{margin-top:20px;padding:12px;border-radius:10px;background:rgba(196,154,58,0.06);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .code{font-weight:900;letter-spacing:2px;padding:8px 12px;border-radius:8px;background:#0b0b0b;border:1px dashed rgba(255,255,255,0.06)}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* countdown */
+    .countdown{display:flex;gap:12px;align-items:center;margin-top:8px}
+    .countdown .box{background:var(--card);padding:8px 12px;border-radius:8px;text-align:center;min-width:60px}
+
+    /* terms */
+    .terms{margin-top:18px;color:var(--muted);font-size:13px;background:rgba(255,255,255,0.01);padding:12px;border-radius:10px}
+
+    /* Email subscribe */
+    .subscribe{display:flex;gap:8px;align-items:center;margin-top:16px}
+    .subscribe input{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;min-width:220px}
+    .subscribe .msg{font-size:13px;color:var(--muted)}
+
+    /* share */
+    .share-row{display:flex;gap:8px;align-items:center;margin-top:12px}
+    .share-btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff;cursor:pointer}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:120}
+    .modal{background:linear-gradient(180deg,#0b0b0b,#070707);padding:18px;border-radius:12px;max-width:520px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,0.6)}
+    .modal h3{margin:0 0 8px;font-family:Playfair Display}
+    .modal .row{display:flex;gap:8px;flex-wrap:wrap}
+    .modal input, .modal select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff;margin-bottom:8px}
+
+    /* responsive */
+    @media(max-width:1000px){.offers{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}}
+    @media(max-width:640px){.offers{grid-template-columns:1fr}.hero{grid-template-columns:1fr;padding:12px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="brand-mark">TH</div>
+        <div class="brand-meta">
+          <div class="title">Temi Hair Salon</div>
+          <div class="sub muted">Limited-time offers</div>
+        </div>
+      </div>
+      <div><a href="temi/index.html" class="small muted">← Back to home</a></div>
+    </div>
+
+    <section class="hero" aria-labelledby="specials-hero">
+      <div>
+        <h1 id="specials-hero">Special offers — treat your hair, save now</h1>
+        <p class="small">Curated seasonal promos, first-time discounts and package deals. Offers valid for a short time only.</p>
+
+        <div class="cta-row" style="margin-top:12px">
+          <a class="btn btn-primary" href="book.html">Book Now</a>
+          <a class="btn btn-ghost" href="#offersGrid">See all offers</a>
+        </div>
+
+        <div class="promo" style="margin-top:14px">
+          <div>
+            <div class="small">Use promo code</div>
+            <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
+              <div class="code" id="promoCode">TEMI25</div>
+              <button class="btn btn-ghost" id="copyBtn">Copy code</button>
+            </div>
+            <div class="small" style="margin-top:8px">Applies to selected services. Ends Oct 31, 2025.</div>
+
+            <!-- Email signup (Feature #2) -->
+            <div class="subscribe" style="margin-top:12px">
+              <input id="emailInput" placeholder="Enter your email for offers" type="email" aria-label="Email for offers">
+              <button class="btn btn-primary" id="subscribeBtn">Subscribe</button>
+              <div class="msg" id="subMsg" style="min-width:160px"></div>
+            </div>
+          </div>
+
+          <div style="margin-left:auto">
+            <div class="small">Sale ends on</div>
+            <div class="countdown" id="countdown">
+              <div class="box"><div id="days">00</div><div class="small">Days</div></div>
+              <div class="box"><div id="hours">00</div><div class="small">Hrs</div></div>
+              <div class="box"><div id="mins">00</div><div class="small">Mins</div></div>
+              <div class="box"><div id="secs">00</div><div class="small">Secs</div></div>
+            </div>
+
+            <!-- Share controls (Feature #3) -->
+            <div class="share-row" style="margin-top:10px">
+              <button class="share-btn" id="shareWeb">Share</button>
+              <button class="share-btn" id="shareWhats">WhatsApp</button>
+              <button class="share-btn" id="copyLink">Copy link</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside style="text-align:right">
+        <div style="background:url('image/Ghana\ Braids\ also\ known\ as\ cornrows\,\ tribal….jpg') center/cover;height:200px;border-radius:10px"></div>
+        <div style="margin-top:12px;background:var(--card);padding:12px;border-radius:10px">
+          <strong>Questions?</strong>
+          <p class="small muted" style="margin:8px 0 0">Call +234 800 000 0000 or message us on Instagram for quick help with bookings.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- offers -->
+    <section id="offersGrid">
+      <div class="offers" style="margin-top:18px">
+        <!-- Offer 1 -->
+        <article class="offer" data-offer="25% off Balayage" data-price="₦26,250">
+          <img src="image/baly.jpg" alt="Balayage special">
+          <div class="offer-body">
+            <h3 class="offer-title">25% off Balayage</h3>
+            <p class="offer-desc">Freshen your tone with 25% off bespoke balayage sessions. Includes toner & gloss.</p>
+            <div class="offer-foot">
+              <div>
+                <div class="small">From</div>
+                <div style="font-weight:800;color:var(--gold)">₦26,250</div>
+              </div>
+              <div>
+                <button class="btn btn-primary offer-book">Book</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Offer 2 -->
+        <article class="offer" data-offer="Starter Cut + Treat" data-price="₦4,000">
+          <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1400&auto=format&fit=crop" alt="Cut package">
+          <div class="offer-body">
+            <h3 class="offer-title">Starter Cut + Treat</h3>
+            <p class="offer-desc">Precision cut + deep conditioning treatment — perfect refresh for ₦4,000 (save ₦1,000).</p>
+            <div class="offer-foot">
+              <div>
+                <div class="small">Now</div>
+                <div style="font-weight:800;color:var(--gold)">₦4,000</div>
+              </div>
+              <div>
+                <button class="btn btn-primary offer-book">Book</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Offer 3 -->
+        <article class="offer" data-offer="Refer & Receive ₦5,000" data-price="₦5,000">
+          <img src="image/ec5173ad-2652-4474-9228-2fe48f2a7875.jpg" alt="Referral">
+          <div class="offer-body">
+            <h3 class="offer-title">Refer & Receive ₦5,000</h3>
+            <p class="offer-desc">Refer a friend who completes a service and both of you get ₦5,000 off your next visit.</p>
+            <div class="offer-foot">
+              <div>
+                <div class="small">Both receive</div>
+                <div style="font-weight:800;color:var(--gold)">₦5,000</div>
+              </div>
+              <div>
+                <button class="btn btn-primary offer-book">Book</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="terms">
+        <strong>Terms & conditions</strong>
+        <p style="margin:8px 0 0">Offers valid at Temi Hair Salon locations only. Promo code TEMI25 applies to select services and cannot be combined with other discounts. Referral credit issued after referred client completes paid service. Sale ends October 31, 2025. Prices shown are sample starting rates and may vary depending on hair length and service complexity.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal (Feature #1) -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Quick booking</h3>
+      <div id="modalOffer" class="small muted" style="margin-bottom:10px"></div>
+
+      <form id="quickBookForm">
+        <input name="name" id="qName" placeholder="Full name" required>
+        <input name="phone" id="qPhone" placeholder="Phone (e.g. +234 800...)" required>
+        <input name="email" id="qEmail" placeholder="Email (optional)" type="email">
+        <input name="offer" id="qOffer" type="hidden">
+        <div style="display:flex;gap:8px;align-items:center">
+          <button type="submit" class="btn btn-primary">Request Booking</button>
+          <a id="gotoBook" class="btn btn-ghost" href="#">Open full booking</a>
+          <button type="button" id="closeModal" class="btn btn-ghost" style="margin-left:auto">Close</button>
+        </div>
+        <div id="quickMsg" class="small muted" style="margin-top:10px"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    /***** COUNTDOWN *****/
+    (function(){
+      const target = new Date('2025-10-31T23:59:59');
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minsEl = document.getElementById('mins');
+      const secsEl = document.getElementById('secs');
+
+      function updateCountdown(){
+        const now = new Date();
+        let diff = Math.max(0, target - now);
+        const days = Math.floor(diff / (1000*60*60*24));
+        diff -= days * (1000*60*60*24);
+        const hours = Math.floor(diff / (1000*60*60));
+        diff -= hours * (1000*60*60);
+        const mins = Math.floor(diff / (1000*60));
+        diff -= mins * (1000*60);
+        const secs = Math.floor(diff / 1000);
+        daysEl.textContent = String(days).padStart(2,'0');
+        hoursEl.textContent = String(hours).padStart(2,'0');
+        minsEl.textContent = String(mins).padStart(2,'0');
+        secsEl.textContent = String(secs).padStart(2,'0');
+      }
+      updateCountdown();
+      setInterval(updateCountdown,1000);
+    })();
+
+    /***** COPY PROMO CODE *****/
+    document.getElementById('copyBtn').addEventListener('click', async ()=>{
+      const code = document.getElementById('promoCode').textContent.trim();
+      try {
+        await navigator.clipboard.writeText(code);
+        const btn = document.getElementById('copyBtn');
+        const prev = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(()=> btn.textContent = prev, 1600);
+      } catch(e){
+        alert('Promo code: ' + code);
+      }
+    });
+
+    /***** SUBSCRIBE EMAIL (Feature #2) *****/
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    const emailInput = document.getElementById('emailInput');
+    const subMsg = document.getElementById('subMsg');
+
+    subscribeBtn.addEventListener('click', ()=>{
+      const email = (emailInput.value || '').trim();
+      if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        subMsg.textContent = 'Please enter a valid email.';
+        subMsg.style.color = '#f28b82';
+        return;
+      }
+      // demo: save to localStorage (replace with API call)
+      const list = JSON.parse(localStorage.getItem('temi_offers_list') || '[]');
+      if(list.includes(email)){
+        subMsg.textContent = 'You are already subscribed.';
+        subMsg.style.color = '#f1c232';
+      } else {
+        list.push(email);
+        localStorage.setItem('temi_offers_list', JSON.stringify(list));
+        subMsg.textContent = 'Thanks — you are subscribed!';
+        subMsg.style.color = '#b6f7c1';
+        emailInput.value = '';
+      }
+      setTimeout(()=> subMsg.textContent = '', 3000);
+    });
+
+    /***** SHARE CONTROLS (Feature #3) *****/
+    const pageUrl = location.href;
+    document.getElementById('copyLink').addEventListener('click', async ()=>{
+      try {
+        await navigator.clipboard.writeText(pageUrl);
+        alert('Link copied to clipboard');
+      } catch(e){
+        prompt('Copy this link', pageUrl);
+      }
+    });
+    document.getElementById('shareWhats').addEventListener('click', ()=>{
+      const text = encodeURIComponent(`Check this Temi Hair Salon offer: ${document.title}\n${pageUrl}`);
+      const wa = `https://wa.me/?text=${text}`;
+      window.open(wa,'_blank');
+    });
+    document.getElementById('shareWeb').addEventListener('click', async ()=>{
+      if(navigator.share){
+        try {
+          await navigator.share({title: document.title, text: 'Special offers at Temi Hair Salon', url: pageUrl});
+        } catch(e){ /* user cancelled */ }
+      } else {
+        alert('Share is not supported on this device. Use Copy link instead.');
+      }
+    });
+
+    /***** OFFER → QUICK BOOK MODAL (Feature #1) *****/
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalOffer = document.getElementById('modalOffer');
+    const qOffer = document.getElementById('qOffer');
+    const gotoBook = document.getElementById('gotoBook');
+    const quickMsg = document.getElementById('quickMsg');
+
+    // open modal when any .offer-book clicked
+    document.querySelectorAll('.offer-book').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const offerCard = btn.closest('.offer');
+        const title = offerCard.dataset.offer || offerCard.querySelector('.offer-title').textContent;
+        const price = offerCard.dataset.price || '';
+        modalOffer.textContent = `${title} — ${price}`;
+        qOffer.value = title;
+        // set full-book link with query param (so book.html can read it later if you want)
+        gotoBook.href = `book.html?offer=${encodeURIComponent(title)}`;
+        openModal();
+      });
+    });
+
+    function openModal(){
+      modalBackdrop.style.display = 'flex';
+      modalBackdrop.setAttribute('aria-hidden','false');
+      // focus first input
+      setTimeout(()=> document.getElementById('qName').focus(), 120);
+    }
+    function closeModal(){
+      modalBackdrop.style.display = 'none';
+      modalBackdrop.setAttribute('aria-hidden','true');
+      quickMsg.textContent = '';
+      document.getElementById('quickBookForm').reset();
+    }
+
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (e)=>{
+      if(e.target === modalBackdrop) closeModal();
+    });
+
+    // demo submission: show message and pretend to send
+    document.getElementById('quickBookForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('qName').value.trim();
+      const phone = document.getElementById('qPhone').value.trim();
+      const email = document.getElementById('qEmail').value.trim();
+      const offer = document.getElementById('qOffer').value;
+      if(!name || !phone){
+        quickMsg.textContent = 'Please fill name and phone.';
+        quickMsg.style.color = '#f28b82';
+        return;
+      }
+      quickMsg.textContent = 'Sending request...';
+      quickMsg.style.color = '#fff';
+      // demo delay
+      setTimeout(()=>{
+        quickMsg.textContent = 'Request received! We will contact you to confirm.';
+        quickMsg.style.color = '#b6f7c1';
+        // optionally record in localStorage for demo
+        const requests = JSON.parse(localStorage.getItem('temi_quick_requests')||'[]');
+        requests.push({name,phone,email,offer,ts:new Date().toISOString()});
+        localStorage.setItem('temi_quick_requests', JSON.stringify(requests));
+        setTimeout(closeModal, 1800);
+      }, 900);
+    });
+
+    /***** Accessibility: close modal on ESC *****/
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') {
+        if(modalBackdrop.style.display === 'flex') closeModal();
+      }
+    });
+  </script>
+</body>
+</html>

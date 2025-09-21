@@ -1,0 +1,251 @@
+<!-- Filename: pages/careers.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Careers — Temi Hair Salon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#050505;--card:#0b0b0b;--gold:#c49a3a;--muted:#a79b8f;--glass: rgba(255,255,255,0.03);--radius:12px;--maxw:1100px}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;color:#fff;background:linear-gradient(180deg,#030303 0%, #070707 100%)}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand-mark{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#f4e6b0);display:flex;align-items:center;justify-content:center;color:#050505;font-weight:700;font-family:Playfair Display}
+    .brand-meta .title{font-family:Playfair Display;font-weight:700}
+    .brand-meta .sub{font-size:13px;color:var(--muted)}
+
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:var(--radius);display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:center}
+    .hero h1{font-family:Playfair Display;margin:0 0 8px}
+    .hero p{margin:0;color:var(--muted)}
+
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .filter{padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;cursor:pointer}
+
+    .roles{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .role{background:var(--card);padding:14px;border-radius:12px}
+    .role h3{margin:0 0 6px}
+    .role .meta{color:var(--muted);font-size:13px}
+    .role .actions{display:flex;gap:8px;margin-top:12px}
+
+    .apply-panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:14px;border-radius:12px}
+    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+    input, select, textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;margin-bottom:10px}
+    textarea{min-height:120px}
+    .btn{padding:10px 12px;border-radius:10px;font-weight:700;display:inline-flex;gap:8px;align-items:center;cursor:pointer;border:none}
+    .btn-primary{background:linear-gradient(90deg,var(--gold),#f4e6b0);color:#050505}
+    .btn-ghost{border:1px solid rgba(255,255,255,0.06);color:#fff;background:transparent}
+
+    .dropzone{border:2px dashed rgba(255,255,255,0.04);padding:12px;border-radius:8px;text-align:center;color:var(--muted)}
+    .small{font-size:13px;color:var(--muted)}
+
+    .benefits{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .benefit{background:var(--card);padding:12px;border-radius:10px;min-width:160px}
+
+    .faq{margin-top:18px}
+    .faq-item{background:var(--card);padding:12px;border-radius:10px;margin-bottom:10px}
+    .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .faq-a{color:var(--muted);margin-top:8px;display:none}
+
+    @media(max-width:900px){.roles{grid-template-columns:1fr}.hero{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="brand-mark">TH</div>
+        <div class="brand-meta">
+          <div class="title">Temi Hair Salon</div>
+          <div class="sub small">Join our team</div>
+        </div>
+      </div>
+      <div><a href="index.html" class="small" style="color:var(--muted)">← Back to home</a></div>
+    </div>
+
+    <section class="hero" aria-labelledby="careers-hero">
+      <div>
+        <h1 id="careers-hero">Careers at Temi</h1>
+        <p class="small">We’re building a caring, creative team. If you love hair, continuous learning and great client hospitality — we’d love to meet you. Below are current openings and a quick application form.</p>
+
+        <div class="filters" aria-hidden="false">
+          <button class="filter" data-filter="all">All</button>
+          <button class="filter" data-filter="stylist">Stylist</button>
+          <button class="filter" data-filter="assistant">Assistant</button>
+          <button class="filter" data-filter="admin">Admin</button>
+        </div>
+
+        <div style="margin-top:12px">
+          <strong>Perks</strong>
+          <div class="benefits">
+            <div class="benefit"><strong>Training stipend</strong><div class="small">Monthly masterclass access</div></div>
+            <div class="benefit"><strong>Retail discount</strong><div class="small">Staff pricing on products</div></div>
+            <div class="benefit"><strong>Flexible shifts</strong><div class="small">Work/life balance</div></div>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="apply-panel">
+          <h3 style="margin-top:0">Quick apply</h3>
+          <form id="applyForm">
+            <label for="appName">Full name</label>
+            <input id="appName" name="name" required placeholder="Your full name">
+
+            <label for="appEmail">Email</label>
+            <input id="appEmail" name="email" type="email" required placeholder="you@example.com">
+
+            <label for="appPhone">Phone</label>
+            <input id="appPhone" name="phone" placeholder="+234 800 000 0000">
+
+            <label for="appRole">Position applying for</label>
+            <select id="appRole" name="role">
+              <option>Stylist — Colorist</option>
+              <option>Senior Stylist — Cuts</option>
+              <option>Extension Specialist</option>
+              <option>Stylist Assistant</option>
+              <option>Front Desk / Admin</option>
+            </select>
+
+            <label for="appResume">Resume / portfolio</label>
+            <div class="dropzone" id="dropzone">Drag & drop or click to attach (PDF / image)</div>
+            <input type="file" id="appResume" accept="application/pdf,image/*" style="display:none">
+            <div id="resumePreview" class="small" style="margin-top:8px;color:var(--muted)"></div>
+
+            <label for="appNote">Short message</label>
+            <textarea id="appNote" name="note" placeholder="Tell us why you’d be a great fit"></textarea>
+
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="btn btn-primary" type="submit">Send application</button>
+              <button type="button" id="resetApp" class="btn btn-ghost">Reset</button>
+            </div>
+            <div id="applyMsg" class="small" style="margin-top:10px;color:var(--muted)"></div>
+          </form>
+        </div>
+      </aside>
+    </section>
+
+    <section style="margin-top:18px">
+      <h2 style="font-family:Playfair Display">Open roles</h2>
+      <div class="roles" id="rolesList">
+        <!-- roles injected by JS -->
+      </div>
+    </section>
+
+    <section style="margin-top:18px">
+      <h3>Culture & expectations</h3>
+      <div class="card" style="margin-top:8px">
+        <p class="small">We value professionalism, continual learning and kindness. Team members are expected to attend monthly training, contribute to a collaborative floor culture and maintain excellent client care standards.</p>
+      </div>
+    </section>
+
+    <section class="faq" style="margin-top:18px">
+      <h3 style="font-family:Playfair Display">Hiring FAQ</h3>
+      <div class="faq-item">
+        <div class="faq-q">How long before I hear back? <span class="small">+</span></div>
+        <div class="faq-a">We typically review applications within 7 business days. If shortlisted, we’ll invite you for an interview and practical assessment.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you accept portfolios? <span class="small">+</span></div>
+        <div class="faq-a">Yes — photos of work, social links or a PDF portfolio are perfect.</div>
+      </div>
+    </section>
+
+    <section style="margin-top:18px;margin-bottom:40px">
+      <div class="card">
+        <h3 style="margin-top:0">Still have questions?</h3>
+        <p class="small">Email careers@temihairsalon.com or call +234 800 000 0000. We try to reply to recruitment queries within one week.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Demo roles data
+    const roles = [
+      {id:'role1',title:'Senior Colorist',type:'stylist',exp:'4+ years',desc:'Advanced color services, color correction, mentorship of junior stylists.'},
+      {id:'role2',title:'Precision Stylist (Cuts)',type:'stylist',exp:'3+ years',desc:'Expertise in contemporary cuts, mens grooming, editorial work.'},
+      {id:'role3',title:'Extension Specialist',type:'stylist',exp:'2+ years',desc:'Tape-in and sew-in installation, matching and maintenance.'},
+      {id:'role4',title:'Stylist Assistant',type:'assistant',exp:'0-2 years',desc:'Support stylists, shampooing, station prep and client care.'},
+      {id:'role5',title:'Front Desk / Admin',type:'admin',exp:'1+ years',desc:'Bookings, POS, client communications and inventory support.'}
+    ];
+
+    const rolesList = document.getElementById('rolesList');
+    function renderRoles(filter='all'){
+      rolesList.innerHTML = '';
+      roles.filter(r=> filter==='all' ? true : r.type===filter).forEach(r=>{
+        const el = document.createElement('article'); el.className='role';
+        el.innerHTML = `<h3>${r.title}</h3><div class="meta">${r.exp} • ${r.type}</div><p class="small" style="margin-top:8px">${r.desc}</p><div class="actions"><button class="btn btn-primary applyNow" data-role="${r.title}">Apply</button><button class="btn btn-ghost" data-id="${r.id}" onclick="viewDetails('${r.id}')">Details</button></div>`;
+        rolesList.appendChild(el);
+      });
+    }
+    renderRoles();
+
+    // Filters
+    document.querySelectorAll('.filter').forEach(btn=> btn.addEventListener('click', ()=>{
+      const f = btn.dataset.filter; renderRoles(f);
+    }));
+
+    // viewDetails (simple modal alternative: alert)
+    function viewDetails(id){ const r = roles.find(x=>x.id===id); if(r) alert(r.title + '\n\n' + r.desc + '\n\nExperience: ' + r.exp); }
+
+    // Apply now buttons prefill form
+    document.addEventListener('click', (e)=>{
+      if(e.target.classList.contains('applyNow')){
+        const role = e.target.dataset.role || '';
+        document.getElementById('appRole').value = role;
+        window.scrollTo({top:0,behavior:'smooth'});
+        document.getElementById('appName').focus();
+      }
+    });
+
+    // Dropzone
+    const dropzone = document.getElementById('dropzone');
+    const resumeInput = document.getElementById('appResume');
+    const resumePreview = document.getElementById('resumePreview');
+
+    dropzone.addEventListener('click', ()=> resumeInput.click());
+    dropzone.addEventListener('dragover', (e)=>{ e.preventDefault(); dropzone.style.borderColor='#c49a3a'; });
+    dropzone.addEventListener('dragleave', ()=>{ dropzone.style.borderColor='rgba(255,255,255,0.04)'; });
+    dropzone.addEventListener('drop', (e)=>{ e.preventDefault(); dropzone.style.borderColor='rgba(255,255,255,0.04)'; const f = e.dataTransfer.files[0]; handleFile(f); });
+    resumeInput.addEventListener('change', (e)=> handleFile(e.target.files[0]));
+
+    function handleFile(f){ if(!f) return; resumePreview.style.display='block'; resumePreview.textContent = `Attached: ${f.name} • ${Math.round(f.size/1024)} KB`; }
+
+    // Quick apply form (demo save to localStorage)
+    document.getElementById('applyForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('appName').value.trim();
+      const email = document.getElementById('appEmail').value.trim();
+      const phone = document.getElementById('appPhone').value.trim();
+      const role = document.getElementById('appRole').value.trim();
+      const note = document.getElementById('appNote').value.trim();
+      if(!name || !email){ document.getElementById('applyMsg').textContent = 'Please provide name and email.'; return; }
+      const app = {id:'APP_'+Date.now(), name, email, phone, role, note, ts:new Date().toISOString()};
+      const list = JSON.parse(localStorage.getItem('temi_apps') || '[]'); list.unshift(app); localStorage.setItem('temi_apps', JSON.stringify(list));
+      document.getElementById('applyMsg').textContent = 'Thanks — your application has been received (demo).';
+      setTimeout(()=> document.getElementById('applyMsg').textContent='', 3500);
+      document.getElementById('applyForm').reset(); resumePreview.textContent='';
+    });
+
+    document.getElementById('resetApp').addEventListener('click', ()=>{ document.getElementById('applyForm').reset(); resumePreview.textContent=''; document.getElementById('applyMsg').textContent=''; });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item=>{
+      const q = item.querySelector('.faq-q'); const a = item.querySelector('.faq-a');
+      q.addEventListener('click', ()=>{
+        const open = a.style.display === 'block';
+        document.querySelectorAll('.faq-a').forEach(x=>x.style.display='none');
+        document.querySelectorAll('.faq-item .small').forEach(x=>x.textContent='+');
+        if(!open){ a.style.display='block'; q.querySelector('.small').textContent='−'; }
+      });
+    });
+
+    // expose helper to inspect saved apps
+    window.getTemiApps = ()=> JSON.parse(localStorage.getItem('temi_apps')||'[]');
+  </script>
+</body>
+</html>

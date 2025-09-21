@@ -1,0 +1,237 @@
+<!-- Filename: pages/clients-stories.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Client Stories — Temi Hair Salon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050505;
+      --card:#0b0b0b;
+      --gold:#c49a3a;
+      --muted:#a79b8f;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      --maxw:1100px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#030303 0%, #070707 100%);color:#fff;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
+
+    /* top mini */
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand-mark{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#f4e6b0);display:flex;align-items:center;justify-content:center;color:#050505;font-weight:700;font-family:Playfair Display}
+    .brand-meta .title{font-family:Playfair Display;font-weight:700}
+    .brand-meta .sub{font-size:13px;color:var(--muted)}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:center;padding:18px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+    .hero h1{font-family:Playfair Display;margin:0 0 6px;font-size:30px}
+    .hero p{color:var(--muted);margin:0 0 12px}
+    .btn{padding:10px 14px;border-radius:10px;font-weight:700;display:inline-flex;gap:10px;align-items:center}
+    .btn-primary{background:linear-gradient(90deg,var(--gold),#f4e6b0);color:#050505}
+    .btn-ghost{border:1px solid rgba(255,255,255,0.06);color:#fff;background:transparent}
+
+    /* testimonials list */
+    .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    .test-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;min-height:170px;display:flex;flex-direction:column;gap:8px}
+    .quote{font-style:italic;color:#fff}
+    .by{margin-top:auto;color:var(--muted);font-size:13px}
+
+    /* before-after slider */
+    .ba-wrap{margin-top:26px;background:var(--card);padding:12px;border-radius:12px;overflow:hidden}
+    .ba-title{display:flex;justify-content:space-between;align-items:center}
+    .ba-frame{position:relative;height:320px;border-radius:10px;overflow:hidden;margin-top:12px;background:#000}
+    .ba-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .ba-after{width:50%;height:100%;overflow:hidden;position:absolute;left:0;top:0}
+    .ba-after img{position:relative;left:0;top:0}
+    .ba-handle{position:absolute;left:50%;top:0;transform:translateX(-50%);height:100%;width:4px;background:linear-gradient(180deg,#fff,#fff);opacity:0.85;display:flex;align-items:center;justify-content:center}
+    .ba-button{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.5);border-radius:999px;padding:8px 10px;border:1px solid rgba(255,255,255,0.06);color:#fff;font-weight:700}
+    .ba-overlay-labels{position:absolute;inset:12px;pointer-events:none;display:flex;justify-content:space-between;color:#fff;font-weight:700;text-shadow:0 4px 18px rgba(0,0,0,0.6)}
+
+    /* gallery carousel (simple) */
+    .gallery{margin-top:24px;display:flex;gap:12px;overflow:hidden}
+    .gallery-track{display:flex;gap:12px;transition:transform .36s ease}
+    .gallery-item{min-width:240px;border-radius:10px;overflow:hidden;background:#101010;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+    .gallery-item img{width:100%;height:160px;object-fit:cover;display:block}
+    .gallery-controls{display:flex;gap:8px;margin-top:10px;align-items:center}
+
+    /* small pieces */
+    h2.section-title{font-family:Playfair Display;margin:18px 0 8px}
+    .muted{color:var(--muted)}
+
+    /* responsive */
+    @media(max-width:1000px){.test-grid{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}}
+    @media(max-width:640px){.test-grid{grid-template-columns:1fr}.gallery-item{min-width:160px}.hero{grid-template-columns:1fr;padding:12px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="brand-mark">TH</div>
+        <div class="brand-meta">
+          <div class="title">Temi Hair Salon</div>
+          <div class="sub muted">Client stories & before / after</div>
+        </div>
+      </div>
+      <div><a href="index.html" class="muted">← Back to home</a></div>
+    </div>
+
+    <section class="hero" aria-labelledby="clients-hero">
+      <div>
+        <h1 id="clients-hero">Real clients. Real transformations.</h1>
+        <p class="muted">Browse client stories, before & afters, and honest reviews — see how our stylists transform hair while preserving health.</p>
+        <div style="margin-top:12px" class="cta-row">
+          <a class="btn btn-primary" href="book.html">Book a consult</a>
+          <a class="btn btn-ghost" href="#storiesGrid">See stories</a>
+        </div>
+      </div>
+
+      <aside style="text-align:right">
+        <div style="background:url('image/Braids\ never\ go\ out\ of\ style!\ From\ classic….jpg') center/cover;height:220px;border-radius:10px"></div>
+        <div style="margin-top:12px;background:var(--card);padding:12px;border-radius:10px">
+          <strong>Want a personalised plan?</strong>
+          <p class="muted" style="margin:6px 0 0">Call +234 800 000 0000 for free advice before booking.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- testimonials list -->
+    <h2 class="section-title">Client testimonials</h2>
+    <div id="storiesGrid" class="test-grid">
+      <article class="test-card">
+        <div class="quote">“Temi completely transformed my color without damaging my hair — the team were careful and the result was even better than the photos I brought.”</div>
+        <div class="by">— Aisha • Color & Balayage (Temi)</div>
+      </article>
+
+      <article class="test-card">
+        <div class="quote">“I was nervous to try extensions. Lola matched the hair perfectly — nobody could tell. It feels natural and I love it.”</div>
+        <div class="by">— Chioma • Extensions (Lola)</div>
+      </article>
+
+      <article class="test-card">
+        <div class="quote">“Bridal trial and day-of styling were flawless. The team arrived early, styled quickly and made me feel calm all day.”</div>
+        <div class="by">— Nkechi • Bridal (Sade)</div>
+      </article>
+    </div>
+
+    <!-- before / after -->
+    <div class="ba-wrap" aria-label="Before and after">
+      <div class="ba-title">
+        <div>
+          <strong>Before & After</strong>
+          <div class="muted" style="font-size:13px">Drag the handle to compare</div>
+        </div>
+        <div><a class="muted" href="book.html">Book a transformation →</a></div>
+      </div>
+
+      <div class="ba-frame" id="baFrame">
+        <!-- after image (on top, clipped by width) -->
+        <img src="image/after.jpg" alt="Before" style="filter:grayscale(0.12);">
+        <div class="ba-after" id="baAfter">
+          <img src="image/bald.jpg" alt="After">
+        </div>
+
+        <div class="ba-handle" id="baHandle" aria-hidden="true">
+          <div class="ba-button" id="baBtn">|||</div>
+        </div>
+
+        <div class="ba-overlay-labels" aria-hidden="true">
+          <div style="background:rgba(0,0,0,0.45);padding:6px 8px;border-radius:8px">BEFORE</div>
+          <div style="background:rgba(0,0,0,0.45);padding:6px 8px;border-radius:8px">AFTER</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- gallery carousel -->
+    <h2 class="section-title">Gallery — recent client looks</h2>
+    <div class="gallery" id="gallery">
+      <div class="gallery-track" id="track">
+        <div class="gallery-item"><img src="image/30 Short Haircuts for Black Women to Copy This….jpg" alt="Client 1"></div>
+        <div class="gallery-item"><img src="image/err.jpg" alt="Client 2"></div>
+        <div class="gallery-item"><img src="image/2e421c8a-9205-4c68-9ab4-41d7d399a54e.jpg" alt="Client 3"></div>
+        <div class="gallery-item"><img src="image/945835e6-7d7d-4eee-94df-23a97ae1d6e7.jpg" alt="Client 4"></div>
+        <div class="gallery-item"><img src="image/d9e55900-58b8-4f89-8b2d-5d3061e919f6.jpg" alt="Client 5"></div>
+      </div>
+    </div>
+    <div class="gallery-controls">
+      <button id="prev" class="btn btn-ghost" aria-label="previous">‹ Prev</button>
+      <button id="next" class="btn btn-ghost" aria-label="next">Next ›</button>
+      <div style="margin-left:auto;color:var(--muted);font-size:13px">Tip: click images to view large (coming soon)</div>
+    </div>
+
+    <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <a class="btn btn-primary" href="quick.html">Book your look</a>
+      <a class="muted" href="index.html">← Back to home</a>
+    </div>
+
+  </div>
+
+  <script>
+    // Before / After slider
+    (function(){
+      const frame = document.getElementById('baFrame');
+      const after = document.getElementById('baAfter');
+      const handle = document.getElementById('baHandle');
+      const btn = document.getElementById('baBtn');
+      let dragging = false;
+
+      function setPos(clientX){
+        const rect = frame.getBoundingClientRect();
+        let x = clientX - rect.left;
+        if(x < 0) x = 0;
+        if(x > rect.width) x = rect.width;
+        const pct = x / rect.width * 100;
+        after.style.width = pct + '%';
+        handle.style.left = pct + '%';
+      }
+
+      handle.addEventListener('mousedown', e => { dragging = true; e.preventDefault(); });
+      document.addEventListener('mouseup', ()=> dragging = false);
+      document.addEventListener('mousemove', e => { if(dragging) setPos(e.clientX); });
+
+      // touch
+      handle.addEventListener('touchstart', ()=> dragging = true);
+      document.addEventListener('touchend', ()=> dragging = false);
+      document.addEventListener('touchmove', e => {
+        if(!dragging) return;
+        setPos(e.touches[0].clientX);
+      });
+
+      // allow click on frame to move handle
+      frame.addEventListener('click', (e) => setPos(e.clientX));
+    })();
+
+    // simple gallery carousel
+    (function(){
+      const track = document.getElementById('track');
+      const items = Array.from(track.children);
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      let idx = 0;
+
+      function update(){
+        const itemWidth = items[0].getBoundingClientRect().width + 12; // gap
+        track.style.transform = `translateX(${-idx * itemWidth}px)`;
+      }
+
+      next.addEventListener('click', ()=>{
+        if(idx < items.length - 1) idx++;
+        update();
+      });
+      prev.addEventListener('click', ()=>{
+        if(idx > 0) idx--;
+        update();
+      });
+
+      // resize observer for responsive adjustments
+      window.addEventListener('resize', update);
+    })();
+  </script>
+</body>
+</html>
